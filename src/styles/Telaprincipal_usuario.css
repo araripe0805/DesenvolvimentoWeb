@@ -1,0 +1,101 @@
+/* src/styles/Telaprincipal_usuario.css */
+
+.home-container {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #ededed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: 40px;
+  margin: 0;
+  left: 0;
+}
+
+/* Faixa azul estendida de ponta a ponta da tela */
+.home-container::before {
+  content: "";
+  position: absolute;
+  top: 90px;
+  left: 0;
+  width: 100%;
+  height: 220px;
+  background: linear-gradient(135deg, #1b4d8e 0%, #2b6cb0 100%);
+  z-index: 0;
+}
+
+/* O cabeçalho ocupa 100% da largura superior */
+.app-header {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+/* Cartão central branco espaçoso */
+.main-content-card {
+  width: 92%;
+  max-width: 1250px;
+  background-color: #f8f9fa;
+  border-radius: 20px;
+  padding: 30px 40px;
+  margin-top: 40px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  min-height: 500px;
+  box-sizing: border-box;
+}
+
+.content-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  position: relative;
+  width: 100%;
+}
+
+.content-header h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111111;
+  margin: 0;
+  text-align: center;
+}
+
+.filter-icon-btn {
+  position: absolute;
+  right: 0;
+  background: transparent;
+  border: 1px solid #d1d5db;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #ffffff;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.filter-icon-btn:hover {
+  background-color: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.cards-grid-placeholder {
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  color: #64748b;
+  background-color: #ffffff;
+}

@@ -1,0 +1,84 @@
+/* src/styles/Header.css */
+
+/* Container principal do topo */
+.app-header {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+/* Área do Usuário / Perfil */
+.profile-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.profile-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1.5px solid #222222;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.03);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: #8c8c8c;
+  user-select: none;
+}
+
+/* Menu de Navegação / Botões */
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Botões padrões do menu */
+.nav-btn {
+  background-color: #e0e0e0;
+  color: #111111;
+  border: 1px solid #111111;
+  border-radius: 10px;
+  padding: 12px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+}
+
+.nav-btn:hover:not(.active) {
+  background-color: #d4d4d4;
+  transform: translateY(-1px);
+}
+
+/* Estado ativo do botão (o botão "Quadras") */
+.nav-btn.active {
+  background-color: #0d52be;
+  color: #ffffff;
+  border: 1px solid #0d52be;
+  box-shadow: 0 4px 10px rgba(13, 82, 190, 0.25);
+}
+
+.nav-btn.active:hover {
+  background-color: #0b45a3;
+}
