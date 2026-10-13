@@ -39,7 +39,7 @@ export function TelaCriarQuadra() {
 
   return (
     <div className="home-container">
-      <HeaderTelaprincipalAdm activeTab="quadras" />
+      <HeaderTelaprincipalAdm activeTab={null} />
 
       <main className="main-content-card criar-quadra-card">
         <div className="criar-quadra-header">
