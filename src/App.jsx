@@ -5,12 +5,13 @@ import {TelaPerfil} from './pages/Telaperfil';
 import { TelaPrincipalAdm } from './pages/Telaprincipal_adm';
 import { TelaLogin } from './pages/Telalogin';
 import {TelaCriarUsuario} from './pages/Telacriarusuario';
+import  {  TelaAssistencia  }  from  './pages/TelaAssistencia' ;
 import './App.css';
 import { TelaCriarQuadra } from './pages/Telacriarquadra';
 import './App.css';
 
 function App() {
-  return <TelaCriarQuadra />;
+  return < TelaAssistencia />;
 }
 
 export default App;
