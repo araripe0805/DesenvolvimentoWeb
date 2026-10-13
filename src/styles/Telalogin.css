@@ -1,0 +1,143 @@
+/* src/styles/TelaLogin.css */
+
+.login-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Lado esquerdo com os inputs */
+.login-left-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.login-form-wrapper {
+  width: 100%;
+  max-width: 420px;
+}
+
+.login-header-text h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 8px;
+}
+
+.login-header-text p {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 35px;
+}
+
+/* Campos do formulário */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  position: relative;
+}
+
+.input-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  font-size: 15px;
+  outline: none;
+  background-color: #ffffff;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+.input-group input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.forgot-password-link {
+  align-self: flex-end;
+  font-size: 13px;
+  color: #2563eb;
+  text-decoration: none;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+}
+
+/* Botão Entrar */
+.login-submit-btn {
+  width: 100%;
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+.login-submit-btn:hover {
+  background-color: #1d4ed8;
+}
+
+/* Rodapé do formulário (Criar conta) */
+.login-footer-register {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.register-link {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}
+
+/* Lado direito com a imagem da rede */
+.login-right-side {
+  flex: 1.2;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.login-banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
