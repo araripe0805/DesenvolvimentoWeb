@@ -141,3 +141,20 @@
   object-fit: cover;
   display: block;
 }
+
+/* Estilização das dicas de senha */
+.password-hints {
+  list-style-type: disc;
+  margin-top: 6px;
+  margin-bottom: 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.password-hints li {
+  font-size: 12px;
+  color: #9ca3af; /* Cor cinzenta suave igual à referência */
+  line-height: 1.3;
+}

@@ -14,21 +14,26 @@ export function TelaLogin() {
                     </div>
 
                     <form className="login-form" onSubmit={(e) => e.preventDefault()}>
+
+                        {/* Label de matricula */}
                         <div className="input-group">
                             <label>Matrícula</label>
                             <input type="text" placeholder="Sua matrícula" />
                         </div>
 
+                        {/* Label de senha */}
                         <div className="input-group">
                             <label>Senha</label>
                             <input type="password" placeholder="" />
                             <a href="#forgot" className="forgot-password-link">Esqueceu a senha?</a>
                         </div>
 
+                        {/* Botão de entrar na conta */}
                         <button type="submit" className="login-submit-btn">
                             Entrar
                         </button>
 
+                        {/* Botão para criar conta */}
                         <div className="login-footer-register">
                             <span>Novo por aqui? </span>
                             <a href="#register" className="register-link">Crie uma conta</a>
