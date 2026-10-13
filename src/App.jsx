@@ -1,6 +1,7 @@
 // src/App.jsx
 import React from 'react';
 import { TelaPrincipalUsuario } from './pages/Telaprincipal_usuario';
+import {TelaPerfil} from './pages/Telaperfil';
 import './App.css';
 
 function App() {

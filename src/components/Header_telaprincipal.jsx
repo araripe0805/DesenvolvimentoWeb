@@ -3,7 +3,7 @@ import React from 'react';
 import { User } from 'lucide-react';
 import '../styles/Header.css';
 
-export function HeaderTelaprincipal() {
+export function HeaderTelaprincipal({ activeTab }) {
     return (
         <header className='app-header'>
             <div className='profile-section'>
@@ -14,9 +14,9 @@ export function HeaderTelaprincipal() {
             </div>
 
             <nav className="nav-buttons">
-                <button className="nav-btn active">Quadras</button>
-                <button className="nav-btn">Suas reservas</button>
-                <button className="nav-btn">Atendimento por mensagem</button>
+                <button className={`nav-btn ${activeTab === 'quadras' ? 'active' : ''}`}>Quadras</button>
+                <button className={`nav-btn ${activeTab === 'reservas' ? 'active' : ''}`}>Suas reservas</button>
+                <button className={`nav-btn ${activeTab === 'atendimento' ? 'active' : ''}`}>Atendimento por mensagem</button>
             </nav>
         </header>
     );

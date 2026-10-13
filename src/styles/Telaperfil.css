@@ -1,0 +1,105 @@
+.profile-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Botão de voltar no canto superior esquerdo */
+.back-btn {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.back-btn:hover {
+  background-color: #f3f4f6;
+}
+
+/* Botão de logout no canto superior direito */
+.logout-btn {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background: #ffffff;
+  border: 1.5px solid #dc2626;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logout-btn:hover {
+  background-color: #fee2e2;
+}
+
+/* Layout interno com o avatar grande e texto ao lado */
+.profile-content-layout {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  margin-top: 50px;
+  padding-left: 20px;
+}
+
+.profile-large-avatar {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  border: 2px solid #111111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  flex-shrink: 0;
+}
+
+.profile-info-section h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 6px;
+}
+
+.profile-matricula {
+  font-size: 16px;
+  color: #4b5563;
+}
+
+/* Seção inferior com o botão de editar */
+.profile-footer-action {
+  margin-top: 40px;
+  padding-left: 20px;
+}
+
+.edit-info-btn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111111;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.2s;
+}
+
+.edit-info-btn:hover {
+  opacity: 0.7;
+}

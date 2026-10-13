@@ -8,7 +8,7 @@ export function TelaPrincipalUsuario() {
     return (
         <div className="home-container">
             {/* Topo com o menu */}
-            <HeaderTelaprincipal />
+            <HeaderTelaprincipal activeTab={null}/>
 
             {/* Conteúdo Central / Cartão Branco */}
             <main className='main-content-card'>
