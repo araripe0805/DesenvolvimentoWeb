@@ -6,9 +6,11 @@ import { TelaPrincipalAdm } from './pages/Telaprincipal_adm';
 import { TelaLogin } from './pages/Telalogin';
 import {TelaCriarUsuario} from './pages/Telacriarusuario';
 import './App.css';
+import { TelaCriarQuadra } from './pages/Telacriarquadra';
+import './App.css';
 
 function App() {
-    return <TelaLogin />;
+  return <TelaCriarQuadra />;
 }
 
 export default App;
