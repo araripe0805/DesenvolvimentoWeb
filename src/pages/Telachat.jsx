@@ -7,11 +7,11 @@ import '../styles/TelaChat.css';
 export function TelaChat() {
     return (
         <div className="home-container chat-page">
-            <HeaderTelaprincipalAdm activeTab={null} />
+            <HeaderTelaprincipalAdm activeTab={'atendimento'} />
 
             <main className="main-content-card assistencia-card">
                 <div className="assistencia-titulo">
-                    <Headset
+                    <UserRound
                         className="assistencia-titulo-icone"
                         size={42}
                         strokeWidth={1.5}

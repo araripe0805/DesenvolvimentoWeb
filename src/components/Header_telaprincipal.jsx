@@ -4,6 +4,7 @@ import { User } from 'lucide-react';
 import '../styles/Header.css';
 
 export function HeaderTelaprincipal({ activeTab }) {
+    console.log('activeTab:', JSON.stringify(activeTab));
     return (
         <header className='app-header'>
             <div className='profile-section'>

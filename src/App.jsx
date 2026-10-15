@@ -1,6 +1,6 @@
 // src/App.jsx
 import React from 'react';
-import { TelaPrincipalUsuario } from './pages/telaprincipal_usuario';
+import { TelaPrincipalUsuario } from './pages/Telaprincipal_usuario';
 import {TelaPerfil} from './pages/Telaperfil';
 import { TelaPrincipalAdm } from './pages/Telaprincipal_adm';
 import { TelaLogin } from './pages/Telalogin';
@@ -13,7 +13,7 @@ import { TelaCriarQuadra } from './pages/Telacriarquadra';
 import './App.css';
 
 function App() {
-  return < TelaEditarInformacoes />;
+  return < TelaPrincipalUsuario />;
 }
 
 export default App;

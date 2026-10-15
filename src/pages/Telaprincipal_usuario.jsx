@@ -5,10 +5,11 @@ import { SlidersHorizontal } from 'lucide-react';
 import '../styles/Telaprincipal_usuario.css'; 
 
 export function TelaPrincipalUsuario() {
+    console.log('TelaPrincipalUsuario renderizou');
     return (
         <div className="home-container">
             {/* Topo com o menu */}
-            <HeaderTelaprincipal activeTab={null}/>
+            <HeaderTelaprincipal activeTab={'quadras'}/>
 
             {/* Conteúdo Central / Cartão Branco */}
             <main className='main-content-card'>

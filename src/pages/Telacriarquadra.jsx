@@ -39,7 +39,7 @@ export function TelaCriarQuadra() {
 
   return (
     <div className="home-container">
-      <HeaderTelaprincipalAdm activeTab={null} />
+      <HeaderTelaprincipalAdm activeTab={'quadras'} />
 
       <main className="main-content-card criar-quadra-card">
         <div className="criar-quadra-header">
@@ -100,7 +100,7 @@ export function TelaCriarQuadra() {
             </div>
 
             <div className="field">
-              <label htmlFor="preco">Preço por hora</label>
+              <label htmlFor="preco">Preço por hora (R$)</label>
               <input
                 id="preco"
                 name="preco"
