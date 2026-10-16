@@ -8,12 +8,12 @@ import {TelaCriarUsuario} from './pages/Telacriarusuario';
 import  {  TelaAssistencia  }  from  './pages/TelaAssistencia' ;
 import { TelaChat } from './pages/Telachat';
 import { TelaEditarInformacoes } from './pages/TelaEditarInformacoes';
-import './App.css';
 import { TelaCriarQuadra } from './pages/Telacriarquadra';
+import TelaInformacoesQuadraUser from "./pages/InformacoesQuadraUser";
 import './App.css';
 
 function App() {
-  return < TelaPrincipalUsuario />;
+  return < TelaInformacoesQuadraUser />;
 }
 
 export default App;
