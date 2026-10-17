@@ -1,5 +1,6 @@
 // src/pages/TelaAssistencia.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Headset, UserRound } from 'lucide-react';
 import { HeaderTelaprincipalAdm } from '../components/Header_telaprincipal_adm';
 import '../styles/TelaAssistencia.css';
@@ -28,7 +29,7 @@ export function TelaAssistencia() {
 
                 {/* Lista de conversas */}
                 <section className="assistencia-lista">
-                    <div className="assistencia-conversa">
+                    <Link to="/admin/atendimento/1" className="assistencia-conversa" style={{ color: "inherit", textDecoration: "none" }}>
                         <div className="assistencia-avatar">
                             <UserRound
                                 size={30}
@@ -51,7 +52,7 @@ export function TelaAssistencia() {
                                 {conversa.horario}
                             </span>
                         </div>
-                    </div>
+                    </Link>
                 </section>
             </main>
         </div>

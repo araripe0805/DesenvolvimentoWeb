@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { HeaderTelaprincipal } from "../components/Header_telaprincipal";
 import { DayPicker } from "react-day-picker";
 import { ptBR } from "react-day-picker/locale";
 import "react-day-picker/style.css";
@@ -7,19 +8,11 @@ import imgQuadra from "../assets/imagem_tela_login.jpeg";
 
 export default function InformacoesQuadraUser() {
   const [dataSelecionada, setDataSelecionada] = useState();
+  const [hoje] = useState(() => new Date());
 
   return (
     <div className="iq-page">
-      <div className="iq-tabArea">
-        <div className="iq-userInfo">
-          <div className="iq-avatar" />
-          <span>Meu perfil</span>
-        </div>
-
-        <button className="iq-tabButton iq-activeTab">Quadras</button>
-        <button className="iq-tabButton">Suas reservas</button>
-        <button className="iq-tabButton">Atendimento por mensagem</button>
-      </div>
+      <HeaderTelaprincipal activeTab="quadras" />
 
       <main className="iq-mainCard">
         <h1 className="iq-mainTitle">Quadra de Beach Tennis</h1>
@@ -66,7 +59,7 @@ export default function InformacoesQuadraUser() {
                 locale={ptBR}
                 selected={dataSelecionada}
                 onSelect={setDataSelecionada}
-                disabled={{ before: new Date() }}
+                disabled={{ before: hoje }}
               />
             </div>
 

@@ -1,11 +1,11 @@
 // src/pages/Telaprincipal_usuario.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { HeaderTelaprincipal } from '../components/Header_telaprincipal';
 import { SlidersHorizontal } from 'lucide-react';
 import '../styles/Telaprincipal_usuario.css'; 
 
 export function TelaPrincipalUsuario() {
-    console.log('TelaPrincipalUsuario renderizou');
     return (
         <div className="home-container">
             {/* Topo com o menu */}
@@ -22,7 +22,7 @@ export function TelaPrincipalUsuario() {
 
                 {/* Área reservada para os cards */}
                 <div className="cards-grid-placeholder">
-                    <p className="placeholder-text">Os cards das quadras serão inseridos aqui em breve...</p>
+                    <Link to="/quadras/beach-tennis" className="nav-btn">Ver quadra de Beach Tennis</Link>
                 </div>
             </main>
         </div>

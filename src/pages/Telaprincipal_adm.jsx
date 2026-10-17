@@ -1,10 +1,12 @@
 // src/pages/Telaprincipal_usuario.jsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { HeaderTelaprincipalAdm } from '../components/Header_telaprincipal_adm';
 import { SlidersHorizontal, Plus } from 'lucide-react';
 import '../styles/Telaprincipal_usuario.css'; 
 
 export function TelaPrincipalAdm() {
+    const navigate = useNavigate();
     return (
         <div className="home-container">
             {/* Topo com o menu */}
@@ -17,7 +19,7 @@ export function TelaPrincipalAdm() {
 
                     {/* Ações no canto superior direito: Botão Adicionar Quadra + Ícone de Filtro */}
                     <div className="admin-header-actions">
-                        <button className="add-quadra-btn">
+                        <button className="add-quadra-btn" onClick={() => navigate("/admin/quadras/nova")}>
                             <Plus size={18} color="#ffffff" /> Adicionar quadra
                         </button>
 

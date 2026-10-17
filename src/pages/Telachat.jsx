@@ -1,13 +1,13 @@
 // src/pages/TelaAssistencia.jsx
 import React from 'react';
-import { Headset, UserRound, Send } from 'lucide-react';
-import { HeaderTelaprincipalAdm } from '../components/Header_telaprincipal_adm';
-import '../styles/TelaChat.css';
+import { UserRound, Send } from 'lucide-react';
+import { HeaderTelaprincipal } from '../components/Header_telaprincipal';
+import '../styles/Telachat.css';
 
 export function TelaChat() {
     return (
         <div className="home-container chat-page">
-            <HeaderTelaprincipalAdm activeTab={'atendimento'} />
+            <HeaderTelaprincipal activeTab={'atendimento'} />
 
             <main className="main-content-card assistencia-card">
                 <div className="assistencia-titulo">

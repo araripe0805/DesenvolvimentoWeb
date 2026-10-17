@@ -1,9 +1,13 @@
 import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { HeaderTelaprincipal } from '../components/Header_telaprincipal';
-import { User, ArrowLeft, Pencil, LogOut, Pen } from 'lucide-react';
+import { User, ArrowLeft, Pencil, LogOut } from 'lucide-react';
 import '../styles/Telaperfil.css';
 
 export function TelaPerfil() {
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
+    const prefix = pathname.startsWith('/admin') ? '/admin' : '';
     return (
         <div className='home-container'>
             {/* Topo com o menu compartilhado */}
@@ -12,12 +16,12 @@ export function TelaPerfil() {
             {/* Cartão Branco Central da Tela de Perfil */}
             <main className='main-content-card profile-card'>
                 {/* Botão de voltar (seta para esquerda) */}
-                <button className='back-btn' title='Voltar'>
+                <button className='back-btn' title='Voltar' onClick={() => navigate(`${prefix}/quadras`)}>
                     <ArrowLeft size={20} color="#000"/>
                 </button>
 
                 {/* Botão de sair no canto superior direito */}
-                <button className='logout-btn' title='Sair'>
+                <button className='logout-btn' title='Sair' onClick={() => navigate('/login', { replace: true })}>
                     <LogOut size={20} color="#dc2626"/>
                 </button>
 
@@ -35,7 +39,7 @@ export function TelaPerfil() {
 
                 {/* Rodapé do card com o botão "Editar informações" */}
                 <div className="profile-footer-action">
-                    <button className="edit-info-btn">
+                    <button className="edit-info-btn" onClick={() => navigate(`${prefix}/perfil/editar`)}>
                         Editar Informações <Pencil size={16} color="#000"/>
                     </button>
                 </div>

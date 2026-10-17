@@ -1,7 +1,8 @@
 // src/pages/TelaCriarUsuario.jsx
 import React from 'react';
+import { Link } from 'react-router-dom';
 import quadraImg from '../assets/imagem_tela_login.jpeg';
-import '../styles/TelaLogin.css';
+import '../styles/Telalogin.css';
 
 export function TelaCriarUsuario() {
     return (
@@ -55,7 +56,7 @@ export function TelaCriarUsuario() {
                         {/* Voltar para a tela de login caso tenha entrado sem querer na tela */}
                         <div className="login-footer-register">
                             <span>Já tem uma conta? </span>
-                            <a href="#register" className="register-link">entrar</a>
+                            <Link to="/login" className="register-link">entrar</Link>
                         </div>
                     </form>
                 </div>

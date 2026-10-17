@@ -1,24 +1,20 @@
-// src/components/Header_telaprincipal.jsx
-import React from 'react';
-import { User } from 'lucide-react';
+﻿import { Link, useLocation } from 'react-router-dom';
+import { ProfileMenu } from './ProfileMenu';
 import '../styles/Header.css';
 
-export function HeaderTelaprincipal({ activeTab }) {
-    console.log('activeTab:', JSON.stringify(activeTab));
-    return (
-        <header className='app-header'>
-            <div className='profile-section'>
-                <div className='profile-avatar'>
-                    <User size={28} color="#333"/>
-                </div>
-                <span className="profile-text">Meu perfil</span>
-            </div>
-
-            <nav className="nav-buttons">
-                <button className={`nav-btn ${activeTab === 'quadras' ? 'active' : ''}`}>Quadras</button>
-                <button className={`nav-btn ${activeTab === 'reservas' ? 'active' : ''}`}>Suas reservas</button>
-                <button className={`nav-btn ${activeTab === 'atendimento' ? 'active' : ''}`}>Atendimento por mensagem</button>
-            </nav>
-        </header>
-    );
+export function HeaderTelaprincipal({ activeTab, admin = false }) {
+  const { pathname } = useLocation();
+  const isAdmin = admin || pathname.startsWith('/admin');
+  const prefix = isAdmin ? '/admin' : '';
+  const items = [{ tab: 'quadras', to: `${prefix}/quadras`, label: 'Quadras' },
+    ...(!isAdmin ? [{ tab: 'reservas', to: '/reservas', label: 'Suas reservas' }] : []),
+    { tab: 'atendimento', to: `${prefix}/atendimento`, label: 'Atendimento por mensagem' }];
+  return <header className="app-header">
+    <ProfileMenu key={pathname} />
+    <nav className="nav-buttons" aria-label="Navegação principal">
+      {items.map(({ tab, to, label }) => <Link key={tab} to={to}
+        aria-current={activeTab === tab ? 'page' : undefined}
+        className={`nav-btn ${activeTab === tab ? 'active' : ''}`}>{label}</Link>)}
+    </nav>
+  </header>;
 }

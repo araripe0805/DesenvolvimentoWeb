@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { HeaderTelaprincipalAdm } from '../components/Header_telaprincipal_adm';
 import { ArrowLeft, Save, UploadCloud } from 'lucide-react';
 import '../styles/Telacriarquadra.css';
@@ -15,6 +16,7 @@ const initialForm = {
 };
 
 export function TelaCriarQuadra() {
+  const navigate = useNavigate();
   const [form, setForm] = useState(initialForm);
   const [imagem, setImagem] = useState('');
 
@@ -43,7 +45,7 @@ export function TelaCriarQuadra() {
 
       <main className="main-content-card criar-quadra-card">
         <div className="criar-quadra-header">
-          <button className="back-btn-criar" type="button" title="Voltar">
+          <button className="back-btn-criar" type="button" title="Voltar" onClick={() => navigate("/admin/quadras")}>
             <ArrowLeft size={20} color="#111111" />
           </button>
           <h2>Criar quadra</h2>
@@ -167,7 +169,7 @@ export function TelaCriarQuadra() {
           </div>
 
           <div className="form-actions">
-            <button className="cancel-btn" type="button">
+            <button className="cancel-btn" type="button" onClick={() => navigate("/admin/quadras")}>
               Cancelar
             </button>
 

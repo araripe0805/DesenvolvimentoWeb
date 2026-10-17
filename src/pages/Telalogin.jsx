@@ -1,6 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import quadraImg from '../assets/imagem_tela_login.jpeg';
-import '../styles/TelaLogin.css';
+import '../styles/Telalogin.css';
 
 export function TelaLogin() {
     return (
@@ -24,8 +25,8 @@ export function TelaLogin() {
                         {/* Label de senha */}
                         <div className="input-group">
                             <label>Senha</label>
-                            <input type="password" placeholder="" />
-                            <a href="#forgot" className="forgot-password-link">Esqueceu a senha?</a>
+                            <input type="password" placeholder="Insira sua senha" />
+                            <Link to="/esqueci-senha" className="forgot-password-link">Esqueceu a senha?</Link>
                         </div>
 
                         {/* Botão de entrar na conta */}
@@ -36,7 +37,7 @@ export function TelaLogin() {
                         {/* Botão para criar conta */}
                         <div className="login-footer-register">
                             <span>Novo por aqui? </span>
-                            <a href="#register" className="register-link">Crie uma conta</a>
+                            <Link to="/cadastro" className="register-link">Crie uma conta</Link>
                         </div>
                     </form>
                 </div>

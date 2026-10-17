@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { HeaderTelaprincipal } from '../components/Header_telaprincipal';
 import { ArrowLeft, Save, User, Lock, Phone, CreditCard } from 'lucide-react';
 import '../styles/TelaEditarInformacoes.css';
 
 export function TelaEditarInformacoes() {
+    const navigate = useNavigate();
+    const { pathname } = useLocation();
+    const perfil = pathname.startsWith('/admin') ? '/admin/perfil' : '/perfil';
     const [formData, setFormData] = useState({
         nome: 'Nome Usuário',
         matricula: 'Matrícula',
@@ -24,7 +28,7 @@ export function TelaEditarInformacoes() {
                 {/* Cabeçalho interno do card */}
                 <div className="edit-info-header-row">
                     <div className="edit-info-title-group">
-                        <button className="back-btn-inline" title="Voltar">
+                        <button className="back-btn-inline" title="Voltar" onClick={() => navigate(perfil)}>
                             <ArrowLeft size={20} color="#000" />
                         </button>
 
@@ -113,7 +117,7 @@ export function TelaEditarInformacoes() {
 
                             {/* Botões de Ação (Cancelar e Salvar) */}
                             <div className="edit-form-actions">
-                                <button type="button" className="cancel-btn">
+                                <button type="button" className="cancel-btn" onClick={() => navigate(perfil)}>
                                     Cancelar
                                 </button>
                                 <button type="submit" className="save-btn">

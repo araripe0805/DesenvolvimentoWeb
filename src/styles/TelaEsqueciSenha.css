@@ -1,0 +1,27 @@
+.recuperar-senha-page {
+  height: auto;
+  min-height: 100vh;
+  overflow: visible;
+}
+
+.recuperar-senha-page .login-header-text h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 8px;
+}
+
+.recuperar-senha-status {
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #1e40af;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .recuperar-senha-page .login-right-side { display: none; }
+  .recuperar-senha-page .login-left-side { padding: 32px 24px; }
+}
