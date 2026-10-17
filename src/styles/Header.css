@@ -41,8 +41,12 @@
 .profile-text {
   font-size: 13px;
   font-weight: 500;
-  color: #8c8c8c;
+  color: #000000;
   user-select: none;
+}
+
+.iq-page .app-header .profile-text {
+  color: #ffffff;
 }
 
 /* Menu de Navegação / Botões */
