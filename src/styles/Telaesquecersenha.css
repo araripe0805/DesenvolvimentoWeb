@@ -1,0 +1,52 @@
+.recuperacao-container {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  overflow: visible;
+}
+
+.recuperacao-container .login-left-side {
+  min-width: 0;
+}
+
+.recuperacao-container .login-header-text h1 {
+  margin: 0 0 8px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #111111;
+}
+
+.recuperacao-container .login-header-text p {
+  line-height: 1.5;
+}
+
+.recuperacao-container .login-right-side {
+  position: sticky;
+  top: 0;
+}
+
+.recuperacao-status {
+  margin: 0;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #eff6ff;
+  color: #1e40af;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.recuperacao-container .login-submit-btn:focus-visible,
+.recuperacao-container .register-link:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 4px;
+}
+
+@media (max-width: 768px) {
+  .recuperacao-container .login-right-side {
+    display: none;
+  }
+
+  .recuperacao-container .login-left-side {
+    padding: 32px 24px;
+  }
+}

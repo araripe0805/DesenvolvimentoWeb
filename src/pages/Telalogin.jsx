@@ -1,8 +1,17 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router';
 import quadraImg from '../assets/imagem_tela_login.jpeg';
-import '../styles/TelaLogin.css';
+import '../styles/Telalogin.css';
 
 export function TelaLogin() {
+    const navigate = useNavigate();
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        // Navegação provisória até a integração com a autenticação.
+        navigate('/quadras');
+    }
+
     return (
         <div className="login-container">
             {/* Lado Esquerdo: Formulário de Login */}
@@ -13,7 +22,7 @@ export function TelaLogin() {
                         <p>Insira suas credenciais para acessar sua conta Ginásio.</p>
                     </div>
 
-                    <form className="login-form" onSubmit={(e) => e.preventDefault()}>
+                    <form className="login-form" onSubmit={handleSubmit}>
                         <div className="input-group">
                             <label>Matrícula</label>
                             <input type="text" placeholder="Sua matrícula" />
@@ -21,8 +30,8 @@ export function TelaLogin() {
 
                         <div className="input-group">
                             <label>Senha</label>
-                            <input type="password" placeholder="" />
-                            <a href="#forgot" className="forgot-password-link">Esqueceu a senha?</a>
+                            <input type="password" placeholder="Insira sua senha" />
+                            <Link to="/esqueci-senha" className="forgot-password-link">Esqueceu a senha?</Link>
                         </div>
 
                         <button type="submit" className="login-submit-btn">
@@ -31,7 +40,7 @@ export function TelaLogin() {
 
                         <div className="login-footer-register">
                             <span>Novo por aqui? </span>
-                            <a href="#register" className="register-link">Crie uma conta</a>
+                            <Link to="/cadastro" className="register-link">Crie uma conta</Link>
                         </div>
                     </form>
                 </div>

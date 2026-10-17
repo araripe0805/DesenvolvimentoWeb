@@ -1,23 +1,28 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import { HeaderTelaprincipal } from '../components/Header_telaprincipal';
-import { User, ArrowLeft, Pencil, LogOut, Pen } from 'lucide-react';
+import { HeaderTelaprincipalAdm } from '../components/Header_telaprincipal_adm';
+import { User, ArrowLeft, Pencil, LogOut } from 'lucide-react';
+import '../styles/Telaprincipal_usuario.css';
 import '../styles/Telaperfil.css';
 
-export function TelaPerfil() {
+export function TelaPerfil({ admin = false }) {
+    const navigate = useNavigate();
+    const Header = admin ? HeaderTelaprincipalAdm : HeaderTelaprincipal;
     return (
         <div className='home-container'>
             {/* Topo com o menu compartilhado */}
-            <HeaderTelaprincipal activeTab={null}/>
+            <Header />
 
             {/* Cartão Branco Central da Tela de Perfil */}
             <main className='main-content-card profile-card'>
                 {/* Botão de voltar (seta para esquerda) */}
-                <button className='back-btn' title='Voltar'>
+                <button className='back-btn' title='Voltar' onClick={() => navigate(admin ? '/admin' : '/quadras')}>
                     <ArrowLeft size={20} color="#000"/>
                 </button>
 
                 {/* Botão de sair no canto superior direito */}
-                <button className='logout-btn' title='Sair'>
+                <button className='logout-btn' title='Sair' onClick={() => navigate('/login', { replace: true })}>
                     <LogOut size={20} color="#dc2626"/>
                 </button>
 

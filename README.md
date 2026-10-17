@@ -1,5 +1,34 @@
 # React + Vite
 
+## Navegação
+
+O projeto usa React Router com `BrowserRouter`. Execute `npm install` e `npm run dev`.
+
+| Rota | Tela |
+| --- | --- |
+| `/login` | Login |
+| `/cadastro` | Criar conta |
+| `/esqueci-senha` | Recuperar senha |
+| `/quadras` | Quadras do usuário |
+| `/perfil` | Perfil do usuário |
+| `/admin` | Quadras do administrador |
+| `/admin/perfil` | Perfil com navegação administrativa |
+
+A raiz `/` e endereços desconhecidos redirecionam para `/login`.
+O formulário de login apenas navega para `/quadras`; ainda não há autenticação ou proteção de rotas.
+O botão Sair retorna ao login. A área administrativa pode ser acessada diretamente em `/admin`.
+O link “Crie uma conta” abre `/cadastro`, e “Entrar” retorna ao login.
+O link “Esqueceu a senha?” abre `/esqueci-senha`, com matrícula e e-mail obrigatórios e retorno ao login.
+A recuperação exibe uma confirmação simulada de envio após a validação dos campos. Ainda não envia e-mails; depende de integração com o backend.
+O cadastro valida campos obrigatórios, e-mail, senha de pelo menos 8 caracteres e confirmação da senha.
+Ainda não cria contas nem armazena dados: após validar, informa que a criação da conta não está disponível.
+Reservas e atendimento ficam desabilitados até que suas telas sejam implementadas.
+
+Na hospedagem, configure o servidor para servir `index.html` nas rotas da aplicação,
+permitindo abrir URLs diretamente e atualizar a página.
+
+Referência: [roteamento declarativo do React Router](https://reactrouter.com/start/declarative/routing).
+
 This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
 Currently, two official plugins are available:
