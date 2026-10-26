@@ -1,7 +1,8 @@
-const Quadra = require('../models/quadraModel');
+// backend/controllers/horarioController.js
+import Quadra from '../models/quadraModel.js';
 
 const quadraController = {
-    // As funções de usuário serão adicionadas aqui gradualmente
+  // As funções de horário serão adicionadas aqui gradualmente
 };
 
-module.exports = quadraController;
+export default quadraController;

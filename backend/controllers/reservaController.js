@@ -1,7 +1,8 @@
-const Reserva = require('../models/reservaModel');
+// backend/controllers/horarioController.js
+import Reserva from '../models/reservaModel.js';
 
 const reservaController = {
-    // As funções de usuário serão adicionadas aqui gradualmente
+  // As funções de horário serão adicionadas aqui gradualmente
 };
 
-module.exports = reservaController;
+export default reservaController;

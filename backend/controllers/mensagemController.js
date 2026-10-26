@@ -1,7 +1,8 @@
-const Mensagem = require('../models/mensagemModel');
+// backend/controllers/horarioController.js
+import Mensagem from '../models/mensagemModel.js';
 
 const mensagemController = {
-    // As funções de usuário serão adicionadas aqui gradualmente
+  // As funções de horário serão adicionadas aqui gradualmente
 };
 
-module.exports = mensagemController;
+export default mensagemController;

@@ -1,7 +1,8 @@
-const User = require('../models/userModel');
+// backend/controllers/horarioController.js
+import User from '../models/userModel.js';
 
 const userController = {
-    // As funções de usuário serão adicionadas aqui gradualmente
+  // As funções de horário serão adicionadas aqui gradualmente
 };
 
-module.exports = userController;
+export default userController;
