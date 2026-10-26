@@ -1,19 +1,19 @@
-// backend/config/db.js
-const mysql = require('mysql2');
+import { MongoClient } from "mongodb";
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',      // Altere se o seu utilizador do MySQL for diferente
-  password: '',  // Insira a sua senha do MySQL aqui
-  database: 'quadras_db'
-});
+const uri = process.env.MONGO_URI;
+const cliente = new MongoClient(uri);
 
-connection.connect((err) => {
-  if (err) {
-    console.error('Erro ao conectar ao MySQL:', err);
-    return;
+export async function connectToMongoDB() {
+  try {
+    await client.connect();
+    console.log('Conectado ao MongoDB com sucesso!');
+    return client;
+  } catch (err) {
+    console.error('Erro ao conectar ao MongoDB:', err);
+    throw err;
   }
-  console.log('Conectado ao banco de dados quadras_db com sucesso!');
-});
+}
 
-module.exports = connection;
+export async function disconnectFromMongoDB() {
+  await client.close();
+}

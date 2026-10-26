@@ -1,29 +1,45 @@
 // backend/server.js
-const express = require('express');
-const cors = require('cors');
+import 'dotenv/config';
+import express from 'express';
+import cors from 'cors';
+import { connectToMongoDB } from './config/mongodb.js';
 
-// Importar os grupos de rotas
-const quadraRoutes = require('./routes/quadraRoutes');
-const userRoutes = require('./routes/userRoutes');
-const reservaRoutes = require('./routes/reservaRoutes');
-const horarioRoutes = require('./routes/horarioRoutes');
-const mensagemRoutes = require('./routes/mensagemRoutes');
+// Importar as rotas
+import quadraRoutes from './routes/quadraRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import reservaRoutes from './routes/reservaRoutes.js';
+import horarioRoutes from './routes/horarioRoutes.js';
+import mensagemRoutes from './routes/mensagemRoutes.js';
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 3000;
 
-// Middlewares (Configurações iniciais)
-app.use(cors()); // Permite que o React (porta diferente) converse com este servidor
-app.use(express.json()); // Permite que o servidor entenda dados enviados em JSON
+async function startServer() {
+  try {
+    const client = await connectToMongoDB();
 
-// Registo das Rotas (Os corredores do nosso "restaurante")
-app.use('/api/quadras', quadraRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/reservas', reservaRoutes);
-app.use('/api/horarios', horarioRoutes);
-app.use('/api/mensagens', mensagemRoutes);
+    // Seleciona o banco de dados
+    const db = client.db('meuBanco');
+    app.locals.db = db;
 
-// Ligar o servidor na porta definida
-app.listen(PORT, () => {
-  console.log(`Servidor backend a rodar na porta ${PORT}`);
-});
+    // Middlewares
+    app.use(cors());
+    app.use(express.json());
+
+    // Registo das Rotas
+    app.use('/api/quadras', quadraRoutes);
+    app.use('/api/users', userRoutes);
+    app.use('/api/reservas', reservaRoutes);
+    app.use('/api/horarios', horarioRoutes);
+    app.use('/api/mensagens', mensagemRoutes);
+
+    app.listen(PORT, () => {
+      console.log(`Servidor rodando na porta ${PORT}`);
+    });
+  } catch (err) {
+    console.error('Não foi possível iniciar o servidor:', err);
+    process.exitCode = 1;
+  }
+}
+
+startServer();
