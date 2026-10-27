@@ -1,7 +1,34 @@
-const db = response('../config/db');
+const mongoose = require('mongoose');
 
-const User = {
-    // As funções serão adicionadas aqui
-};
+const userSchema = new mongoose.Schema({
+    nome: {
+        type: String,
+        required: true,
+        trim: true
+    },
 
-module.exports = User;
+    matricula: {
+        type: String,
+        unique: true,
+        required: true,
+        trim: true
+    },
+    telefone: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    senha: {
+        type: String,
+        required: true,
+    },
+    tipoUser: {
+        type: String,
+        enum: ['usuario', 'admin'],
+        default: 'usuario'
+    }
+},{
+    timestamps: true
+})
+
+module.exports = mongoose.model('User', userSchema);
