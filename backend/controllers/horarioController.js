@@ -1,7 +1,8 @@
-const Horario = require('../models/horarioModel');
+import Horario from '../models/horarioModel.js';
+import bcrypt from 'bcrypt';
 
 const horarioController = {
-    // As funções de usuário serão adicionadas aqui gradualmente
+  
 };
 
-module.exports = horarioController;
+export default horarioController;

@@ -1,5 +1,4 @@
-
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const reservaSchema = new mongoose.Schema({
     usuario: {
@@ -51,4 +50,4 @@ reservaSchema.index({
     horario: 1
 });
 
-module.exports = mongoose.model('Reserva', reservaSchema);
+export default mongoose.model('Reserva', reservaSchema);

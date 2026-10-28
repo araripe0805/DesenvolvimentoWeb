@@ -1,8 +1,7 @@
-// backend/routes/mensagemRoutes.js
-const express = require('express');
+// backend/routes/userRoutes.js
+import express from 'express';
+import mensagemController from '../controllers/mensagemController.js';
+
 const router = express.Router();
-const mensagemController = require('../controllers/mensagemController');
 
-// As rotas de mensagens serão adicionadas aqui gradualmente
-
-module.exports = router;
+export default router;

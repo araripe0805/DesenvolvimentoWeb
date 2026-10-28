@@ -1,5 +1,4 @@
-
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const horarioSchema = new mongoose.Schema({
     quadra: {
@@ -40,4 +39,4 @@ horarioSchema.index({  // indice para ajudar na busca de horários disponíveis 
     horaInicio: 1
 });
 
-module.exports = mongoose.model('Horario', horarioSchema);
+export default mongoose.model('Horario', horarioSchema);

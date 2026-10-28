@@ -1,8 +1,7 @@
-// backend/routes/quadraRoutes.js
-const express = require('express');
+// backend/routes/userRoutes.js
+import express from 'express';
+import quadraController from '../controllers/quadraController.js';
+
 const router = express.Router();
-const quadraController = require('../controllers/quadraController');
 
-// As rotas de quadras serão adicionadas aqui gradualmente
-
-module.exports = router;
+export default router;

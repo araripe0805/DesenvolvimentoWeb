@@ -1,13 +1,9 @@
-import { MongoClient } from "mongodb";
-
-const uri = process.env.MONGO_URI;
-const cliente = new MongoClient(uri);
+import mongoose from 'mongoose';
 
 export async function connectToMongoDB() {
   try {
-    await client.connect();
+    await mongoose.connect(process.env.MONGO_URI);
     console.log('Conectado ao MongoDB com sucesso!');
-    return client;
   } catch (err) {
     console.error('Erro ao conectar ao MongoDB:', err);
     throw err;
@@ -15,5 +11,5 @@ export async function connectToMongoDB() {
 }
 
 export async function disconnectFromMongoDB() {
-  await client.close();
+  await mongoose.disconnect();
 }

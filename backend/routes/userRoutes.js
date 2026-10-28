@@ -1,8 +1,9 @@
 // backend/routes/userRoutes.js
-const express = require('express');
+import express from 'express';
+import userController from '../controllers/userController.js';
+
 const router = express.Router();
-const userController = require('../controllers/userController');
 
-// As rotas de utilizadores serão adicionadas aqui gradualmente
+router.post('/', userController.criarUsuario);
 
-module.exports = router;
+export default router;

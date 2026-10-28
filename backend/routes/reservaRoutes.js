@@ -1,8 +1,7 @@
-// backend/routes/reservaRoutes.js
-const express = require('express');
+// backend/routes/userRoutes.js
+import express from 'express';
+import reservaController from '../controllers/reservaController.js';
+
 const router = express.Router();
-const reservaController = require('../controllers/reservaController');
 
-// As rotas de reservas serão adicionadas aqui gradualmente
-
-module.exports = router;
+export default router;

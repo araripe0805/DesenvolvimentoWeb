@@ -2,7 +2,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import { connectToMongoDB } from './config/mongodb.js';
+import { connectToMongoDB } from './config/db.js';
 
 // Importar as rotas
 import quadraRoutes from './routes/quadraRoutes.js';
@@ -16,11 +16,7 @@ const PORT = process.env.PORT || 3000;
 
 async function startServer() {
   try {
-    const client = await connectToMongoDB();
-
-    // Seleciona o banco de dados
-    const db = client.db('meuBanco');
-    app.locals.db = db;
+    await connectToMongoDB();
 
     // Middlewares
     app.use(cors());

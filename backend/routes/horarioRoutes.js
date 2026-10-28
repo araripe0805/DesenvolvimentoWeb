@@ -1,8 +1,7 @@
-// backend/routes/horarioRoutes.js
-const express = require('express');
+// backend/routes/userRoutes.js
+import express from 'express';
+import horarioController from '../controllers/horarioController.js';
+
 const router = express.Router();
-const horarioController = require('../controllers/horarioController');
 
-// As rotas de horários serão adicionadas aqui gradualmente
-
-module.exports = router;
+export default router;

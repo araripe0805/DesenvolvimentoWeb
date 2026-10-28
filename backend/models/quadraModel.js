@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const quadraSchema = new mongoose.Schema({
     nome: {
@@ -66,4 +66,4 @@ const quadraSchema = new mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.model('Quadra', quadraSchema);
+export default mongoose.model('Quadra', quadraSchema);
