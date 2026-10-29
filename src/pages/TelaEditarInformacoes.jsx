@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { HeaderTelaprincipal } from '../components/Header_telaprincipal';
-import { ArrowLeft, Save, User, Lock, Phone, CreditCard } from 'lucide-react';
+import { ArrowLeft, Save, User, Lock, Phone, CreditCard, Trash2 } from 'lucide-react';
 import '../styles/TelaEditarInformacoes.css';
 
 export function TelaEditarInformacoes() {
@@ -125,6 +125,18 @@ export function TelaEditarInformacoes() {
                                 </button>
                             </div>
                         </form>
+                    </div>
+
+                    {/* Zona de perigo: excluir conta */}
+                    <div className="danger-zone-box">
+                        <div className="danger-zone-text">
+                            <h3>Excluir conta</h3>
+                            <p>Ao excluir sua conta, seus dados serão removidos e essa ação não poderá ser desfeita.</p>
+                        </div>
+
+                        <button type="button" className="delete-account-btn">
+                            <Trash2 size={18} /> Excluir conta
+                        </button>
                     </div>
                 </div>
             </main>
