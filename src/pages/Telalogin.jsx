@@ -1,11 +1,34 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import quadraImg from '../assets/imagem_tela_login.jpeg';
 import '../styles/Telalogin.css';
 
 export function TelaLogin() {
+
+    const location = useLocation();
+    const navigate = useNavigate();
+    const [mostrarPopup, setMostrarPopup] = useState(false);
+
+    useEffect(() => {
+        if (location.state?.usuarioCriado) {
+            setMostrarPopup(true);
+
+            // limpa o recado para o popup não voltar ao apertar F5
+            navigate(location.pathname, { replace: true, state: null });
+
+            const timer = setTimeout(() => setMostrarPopup(false), 3000);
+            return () => clearTimeout(timer);
+        }
+    }, []);
+
     return (
         <div className="login-container">
+            {mostrarPopup && (
+                <div className="popup-sucesso">
+                    Usuário criado com sucesso!
+                </div>
+            )}
+            
             {/* Lado Esquerdo: Formulário de Login */}
             <div className="login-left-side">
                 <div className="login-form-wrapper">
