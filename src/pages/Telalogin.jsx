@@ -9,6 +9,11 @@ export function TelaLogin() {
     const navigate = useNavigate();
     const [mostrarPopup, setMostrarPopup] = useState(false);
 
+    const [matricula, setMatricula] = useState('');
+    const [senha, setSenha] = useState('');
+    const [erro, setErro] = useState('');
+    const [carregando, setCarregando] = useState(false);
+
     useEffect(() => {
         if (location.state?.usuarioCriado) {
             setMostrarPopup(true);
@@ -20,6 +25,36 @@ export function TelaLogin() {
             return () => clearTimeout(timer);
         }
     }, []);
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        setErro('');
+        setCarregando(true);
+
+        try {
+            const resposta = await fetch('http://localhost:3000/api/users/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ matricula, senha }),
+            });
+
+            const dados = await resposta.json();
+
+            if (!resposta.ok) {
+                setErro(dados.erro || 'Não foi possível entrar.');
+                return;
+            }
+
+            // guarda quem entrou, para as outras telas saberem
+            localStorage.setItem('usuario', JSON.stringify(dados));
+
+            navigate('/quadras');
+        } catch (err) {
+            setErro('Não foi possível conectar ao servidor.');
+        } finally {
+            setCarregando(false);
+        }
+    }
 
     return (
         <div className="login-container">
@@ -37,27 +72,39 @@ export function TelaLogin() {
                         <p>Insira suas credenciais para acessar sua conta Ginásio.</p>
                     </div>
 
-                    <form className="login-form" onSubmit={(e) => e.preventDefault()}>
+                    <form className="login-form" onSubmit={handleSubmit}>
 
                         {/* Label de matricula */}
                         <div className="input-group">
                             <label>Matrícula</label>
-                            <input type="text" placeholder="Sua matrícula" />
+                            <input
+                                type="text"
+                                placeholder="Sua matrícula"
+                                value={matricula}
+                                onChange={(e) => setMatricula(e.target.value)}
+                            />
                         </div>
 
                         {/* Label de senha */}
                         <div className="input-group">
                             <label>Senha</label>
-                            <input type="password" placeholder="Insira sua senha" />
+                            <input
+                                type="password"
+                                placeholder="Insira sua senha"
+                                value={senha}
+                                onChange={(e) => setSenha(e.target.value)}
+                            />
                             <Link to="/esqueci-senha" className="forgot-password-link">Esqueceu a senha?</Link>
                         </div>
 
+                        {erro && <p className="form-erro">{erro}</p>}
+
                         {/* Botão de entrar na conta */}
-                        <button type="submit" className="login-submit-btn">
-                            Entrar
+                        <button type="submit" className="login-submit-btn" disabled={carregando}>
+                            {carregando ? 'Entrando...' : 'Entrar'}
                         </button>
 
-                        {/* Botão para criar conta */}
+                        {/* Botão para criar conta (continua igual) */}
                         <div className="login-footer-register">
                             <span>Novo por aqui? </span>
                             <Link to="/cadastro" className="register-link">Crie uma conta</Link>
