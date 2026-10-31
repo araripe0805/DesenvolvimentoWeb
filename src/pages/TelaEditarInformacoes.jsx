@@ -8,10 +8,11 @@ export function TelaEditarInformacoes() {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const perfil = pathname.startsWith('/admin') ? '/admin/perfil' : '/perfil';
+    const usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
     const [formData, setFormData] = useState({
-        nome: 'Nome Usuário',
-        matricula: 'Matrícula',
-        telefone: '(85) 98888-8888',
+        nome: usuario?.nome || '',
+        matricula: usuario?.matricula || '',
+        telefone: usuario?.telefone || '',
         senha: '••••••••••••'
     });
 
