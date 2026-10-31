@@ -133,3 +133,24 @@
 .admin-header-actions .filter-icon-btn {
   position: static; /* Remove o absolute interno para respeitar o flexbox do container */
 }
+
+.admin-header-actions .add-quadra-btn { text-decoration: none; }
+.quadras-layout { display: flex; align-items: flex-start; gap: 24px; }
+.quadras-grid { flex: 1; min-width: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
+.quadra-list-card { overflow: hidden; border: 1px solid #dbe2ea; border-radius: 12px; background: #fff; }
+.quadra-list-card img { display: block; width: 100%; height: 160px; object-fit: cover; }
+.quadra-list-card-body { padding: 18px; }
+.quadra-list-card-body h3 { margin: 0 0 10px; }
+.quadra-list-card-body p { color: #475569; margin: 8px 0; }
+.quadra-list-card-body a { display: inline-block; margin-top: 10px; color: #1d4ed8; font-weight: 600; }
+.quadras-empty { grid-column: 1 / -1; padding: 36px; border: 1px dashed #cbd5e1; border-radius: 12px; background: #fff; text-align: center; color: #475569; }
+.filtros-panel { width: 270px; flex: 0 0 270px; box-sizing: border-box; padding: 22px; border: 1px solid #dbe2ea; border-radius: 12px; background: #fff; }
+.filtros-panel h3 { margin: 0 0 18px; }
+.filtros-panel label { display: block; margin-bottom: 16px; font-weight: 600; font-size: 14px; }
+.filtros-panel select, .filtros-panel input { display: block; width: 100%; box-sizing: border-box; margin-top: 6px; padding: 9px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; font: inherit; }
+.filtros-panel fieldset { margin: 0; padding: 0; border: 0; }
+.filtros-panel legend { margin-bottom: 10px; font-weight: 600; font-size: 14px; }
+.filtros-price { display: flex; gap: 10px; }
+.filtros-price label { min-width: 0; flex: 1; font-weight: 400; }
+.filtros-clear { width: 100%; padding: 10px; border: 1px solid #1d4ed8; border-radius: 8px; color: #1d4ed8; background: #fff; cursor: pointer; }
+@media (max-width: 700px) { .quadras-layout { flex-direction: column-reverse; } .filtros-panel { width: 100%; flex-basis: auto; } .quadras-grid { width: 100%; } .main-content-card { padding: 24px 18px; } }
