@@ -48,7 +48,11 @@ export function TelaLogin() {
             // guarda quem entrou, para as outras telas saberem
             localStorage.setItem('usuario', JSON.stringify(dados));
 
-            navigate('/quadras');
+            if (dados.tipoUser === 'admin') {
+                navigate('/quadras_adm');
+            } else {
+                navigate('/quadras');
+            }
         } catch (err) {
             setErro('Não foi possível conectar ao servidor.');
         } finally {

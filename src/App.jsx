@@ -27,6 +27,7 @@ export default function App() {
     <Route path="/esqueci-senha" element={<TelaEsqueciSenha />} />
     <Route path="/cadastro" element={<TelaCriarUsuario />} />
     <Route path="/quadras" element={<TelaPrincipalUsuario />} />
+    <Route path="/quadras_adm" element={<TelaPrincipalAdm />} />
     <Route path="/quadras/:id" element={<InformacoesQuadraUser />} />
     <Route path="/reservas" element={<Reservas />} />
     <Route path="/perfil" element={<TelaPerfil />} />
