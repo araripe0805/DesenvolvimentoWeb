@@ -8,6 +8,7 @@ export function TelaPerfil() {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const prefix = pathname.startsWith('/admin') ? '/admin' : '';
+    const usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
     return (
         <div className='home-container'>
             {/* Topo com o menu compartilhado */}
@@ -32,8 +33,8 @@ export function TelaPerfil() {
                     </div>
 
                     <div className="profile-info-section">
-                        <h2 className='profile-nome-usuario'>Nome do Usuário</h2>
-                        <p className="profile-matricula">Matrícula</p>
+                        <h2 className='profile-nome-usuario'>{usuario?.nome || 'Usuário'}</h2>
+                        <p className="profile-matricula">Matrícula: {usuario?.matricula || '-'}</p>
                     </div>
                 </div>
 
