@@ -49,7 +49,7 @@ export function TelaLogin() {
             localStorage.setItem('usuario', JSON.stringify(dados));
 
             if (dados.tipoUser === 'admin') {
-                navigate('/quadras_adm');
+                navigate('/admin/quadras');
             } else {
                 navigate('/quadras');
             }
