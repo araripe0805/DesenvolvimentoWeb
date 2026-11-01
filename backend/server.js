@@ -21,6 +21,7 @@ async function startServer() {
     // Middlewares
     app.use(cors());
     app.use(express.json());
+    app.use('/uploads', express.static('uploads'));
 
     // Registo das Rotas
     app.use('/api/quadras', quadraRoutes);

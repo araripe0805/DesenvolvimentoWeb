@@ -92,12 +92,16 @@
 }
 
 .cards-grid-placeholder {
-  border: 2px dashed #cbd5e1;
-  border-radius: 12px;
-  padding: 40px;
-  text-align: center;
-  color: #64748b;
-  background-color: #ffffff;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Estilos para as ações do cabeçalho do Administrador */
@@ -132,4 +136,10 @@
 /* Ajuste na posição do botão de filtro quando acompanhado do botão de adicionar */
 .admin-header-actions .filter-icon-btn {
   position: static; /* Remove o absolute interno para respeitar o flexbox do container */
+}
+
+@media (max-width: 600px) {
+  .cards-grid-placeholder {
+    grid-template-columns: 1fr;
+  }
 }

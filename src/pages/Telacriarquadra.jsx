@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HeaderTelaprincipalAdm } from '../components/Header_telaprincipal_adm';
@@ -23,26 +22,32 @@ export function TelaCriarQuadra() {
   const [imagem, setImagem] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [sucesso, setSucesso] = useState('');
 
   function handleChange(event) {
     const { name, value } = event.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value
+    }));
   }
 
   function handleImageChange(event) {
     const file = event.target.files?.[0];
+
     if (!file) return;
 
     const previewUrl = URL.createObjectURL(file);
     setImagem(previewUrl);
   }
 
-  // ESTA É A FUNÇÃO handleSubmit MODIFICADA
   async function handleSubmit(event) {
     event.preventDefault();
 
     setLoading(true);
     setError('');
+    setSucesso('');
 
     try {
       const usuarioSalvo = localStorage.getItem('usuario');
@@ -53,6 +58,14 @@ export function TelaCriarQuadra() {
       }
 
       const usuario = JSON.parse(usuarioSalvo);
+      const idAdministrador = usuario._id || usuario.id;
+
+      if (!idAdministrador) {
+        setError(
+          'Não foi possível identificar o administrador. Faça login novamente.'
+        );
+        return;
+      }
 
       const dadosQuadra = {
         ...form,
@@ -61,30 +74,39 @@ export function TelaCriarQuadra() {
         largura: Number(form.largura),
         comprimento: Number(form.comprimento),
         imagem: '',
-        administrador: usuario._id
+        administrador: idAdministrador
       };
 
-      const resposta = await fetch('http://localhost:3000/api/quadras', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dadosQuadra)
-      });
+      const resposta = await fetch(
+        'http://localhost:3000/api/quadras',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dadosQuadra)
+        }
+      );
 
       const dadosResposta = await resposta.json();
 
       if (!resposta.ok) {
         throw new Error(
-          dadosResposta.mensagem || 'Não foi possível criar a quadra.'
+          dadosResposta.erro ||
+          dadosResposta.mensagem ||
+          'Não foi possível criar a quadra.'
         );
       }
 
-      alert('Quadra criada com sucesso!');
-      navigate('/admin/quadras');
+      setSucesso('Quadra criada com sucesso!');
+      setForm(initialForm);
+      setImagem('');
     } catch (erro) {
       console.error('Erro ao criar quadra:', erro);
-      setError(erro.message || 'Erro ao conectar com o servidor.');
+
+      setError(
+        erro.message || 'Erro ao conectar com o servidor.'
+      );
     } finally {
       setLoading(false);
     }
@@ -92,7 +114,7 @@ export function TelaCriarQuadra() {
 
   return (
     <div className="home-container">
-      <HeaderTelaprincipalAdm activeTab={'quadras'} />
+      <HeaderTelaprincipalAdm activeTab="quadras" />
 
       <main className="main-content-card criar-quadra-card">
         <div className="criar-quadra-header">
@@ -108,10 +130,37 @@ export function TelaCriarQuadra() {
           <h2>Criar quadra</h2>
         </div>
 
-        <form className="criar-quadra-form" onSubmit={handleSubmit}>
+        {sucesso && (
+  <div className="modal-overlay">
+    <div className="modal-sucesso">
+      <div className="icone-sucesso">✓</div>
+
+      <h2>Quadra cadastrada!</h2>
+
+      <p>
+        A quadra foi criada com sucesso e já está disponível
+        na listagem.
+      </p>
+
+      <button
+        type="button"
+        className="btn-confirmacao"
+        onClick={() => setSucesso('')}
+      >
+        Entendi
+      </button>
+    </div>
+  </div>
+)}
+
+        <form
+          className="criar-quadra-form"
+          onSubmit={handleSubmit}
+        >
           <div className="form-grid">
             <div className="field">
               <label htmlFor="nome">Nome da quadra</label>
+
               <input
                 id="nome"
                 name="nome"
@@ -125,6 +174,7 @@ export function TelaCriarQuadra() {
 
             <div className="field">
               <label htmlFor="tipo">Tipo de superfície</label>
+
               <select
                 id="tipo"
                 name="tipo"
@@ -142,6 +192,7 @@ export function TelaCriarQuadra() {
 
             <div className="field full-width">
               <label htmlFor="localizacao">Localização</label>
+
               <input
                 id="localizacao"
                 name="localizacao"
@@ -154,7 +205,10 @@ export function TelaCriarQuadra() {
             </div>
 
             <div className="field">
-              <label htmlFor="capacidade">Capacidade máxima</label>
+              <label htmlFor="capacidade">
+                Capacidade máxima
+              </label>
+
               <input
                 id="capacidade"
                 name="capacidade"
@@ -168,7 +222,10 @@ export function TelaCriarQuadra() {
             </div>
 
             <div className="field">
-              <label htmlFor="preco">Preço por hora (R$)</label>
+              <label htmlFor="preco">
+                Preço por hora (R$)
+              </label>
+
               <input
                 id="preco"
                 name="preco"
@@ -184,6 +241,7 @@ export function TelaCriarQuadra() {
 
             <div className="field">
               <label htmlFor="largura">Largura (m)</label>
+
               <input
                 id="largura"
                 name="largura"
@@ -198,7 +256,10 @@ export function TelaCriarQuadra() {
             </div>
 
             <div className="field">
-              <label htmlFor="comprimento">Comprimento (m)</label>
+              <label htmlFor="comprimento">
+                Comprimento (m)
+              </label>
+
               <input
                 id="comprimento"
                 name="comprimento"
@@ -214,6 +275,7 @@ export function TelaCriarQuadra() {
 
             <div className="field full-width">
               <label htmlFor="descricao">Descrição</label>
+
               <textarea
                 id="descricao"
                 name="descricao"
@@ -226,10 +288,16 @@ export function TelaCriarQuadra() {
           </div>
 
           <div className="upload-box">
-            <label htmlFor="imagem" className="upload-label">
+            <label
+              htmlFor="imagem"
+              className="upload-label"
+            >
               <UploadCloud size={22} color="#1d4ed8" />
+
               <span>
-                {imagem ? 'Alterar imagem' : 'Adicionar imagem da quadra'}
+                {imagem
+                  ? 'Alterar imagem'
+                  : 'Adicionar imagem da quadra'}
               </span>
             </label>
 
@@ -249,7 +317,11 @@ export function TelaCriarQuadra() {
             )}
           </div>
 
-          {error && <p className="form-erro">{error}</p>}
+          {error && (
+            <p className="form-erro">
+              {error}
+            </p>
+          )}
 
           <div className="form-actions">
             <button
@@ -263,10 +335,13 @@ export function TelaCriarQuadra() {
             <button
               className="submit-btn"
               type="submit"
-              disabled={loading}
+              disabled={loading || Boolean(sucesso)}
             >
               <Save size={18} />
-              {loading ? 'Salvando...' : 'Salvar quadra'}
+
+              {loading
+                ? 'Salvando...'
+                : 'Salvar quadra'}
             </button>
           </div>
         </form>

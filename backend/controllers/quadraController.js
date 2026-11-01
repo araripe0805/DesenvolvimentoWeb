@@ -3,6 +3,8 @@ import Quadra from '../models/quadraModel.js';
 const quadraController = {
   criarQuadra: async (req, res) => {
     try {
+      console.log('Dados recebidos do frontend:', req.body);
+      console.log('Administrador recebido:', req.body.administrador);
       const { nome, tipo, localizacao, capacidade, preco, largura, comprimento, descricao, imagem, ativo, administrador } = req.body;
 
       if (
@@ -31,7 +33,9 @@ const quadraController = {
         largura,
         comprimento,
         descricao,
-        imagem
+        imagem,
+        ativo,
+        administrador
       });
 
       return res.status(201).json({
@@ -58,15 +62,15 @@ const quadraController = {
     try {
       const quadras = await Quadra.find({ ativo: true });
 
-    return res.status(200).json(quadras);
-  } catch (error) {
-    console.error(error);
+      return res.status(200).json(quadras);
+    } catch (error) {
+      console.error(error);
 
-    return res.status(500).json({
-      erro: 'Erro ao buscar quadras.'
-    });
+      return res.status(500).json({
+        erro: 'Erro ao buscar quadras.'
+      });
+    }
   }
-}
 };
 
 export default quadraController;
