@@ -1,0 +1,338 @@
+.iqa-card {
+  background: #eeeeee;
+  padding: 16px 24px 32px;
+}
+
+/* Topo */
+.iqa-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.iqa-title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #000;
+  text-align: center;
+}
+
+.iqa-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: #fff;
+  color: #000;
+  border: 1px solid #333;
+  border-radius: 14px;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.iqa-btn-danger {
+  color: #ef4444;
+  border-color: #ef4444;
+}
+
+/* Imagem */
+.iqa-hero {
+  position: relative;
+  border: 1px solid #222;
+  border-radius: 14px;
+  overflow: hidden;
+  height: 230px;
+}
+
+.iqa-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.iqa-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(220, 220, 220, 0.75);
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.iqa-arrow-left { left: 8px; }
+.iqa-arrow-right { right: 8px; }
+
+/* Conteúdo inferior */
+.iqa-content {
+  display: grid;
+  grid-template-columns: 1fr 220px 280px;
+  gap: 24px;
+  margin-top: 24px;
+  align-items: start;
+}
+
+.iqa-section-title {
+  margin: 0 0 40px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #000;
+}
+
+.iqa-info-row {
+  display: flex;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.iqa-info-label {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #000;
+}
+
+.iqa-info-text {
+  margin: 0;
+  font-size: 14px;
+  color: #000;
+}
+
+.iqa-reservas-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.iqa-reservas-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: #000;
+}
+
+.iqa-reservas-hint {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7a7a7a;
+}
+
+.iqa-aviso {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: #b91c1c;
+}
+
+.iqa-ver-btn {
+  align-self: flex-start;
+  margin-top: 28px;
+  padding: 10px 18px;
+  background: #2b3cff;
+  color: #fff;
+  border: 1px solid #1a24b8;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.iqa-ver-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Calendário */
+.iqa-calendario {
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 10px;
+  min-height: 230px;
+}
+
+.iqa-cal-selects {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.iqa-cal-selects select {
+  background: #d9d9d9;
+  border: none;
+  padding: 6px 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #000;
+  cursor: pointer;
+}
+
+.iqa-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px 4px;
+  justify-items: center;
+}
+
+.iqa-cal-weekday {
+  font-size: 11px;
+  font-weight: 700;
+  color: #000;
+}
+
+.iqa-dia {
+  width: 22px;
+  height: 22px;
+  border: 1px solid #222;
+  font-size: 12px;
+  font-weight: 600;
+  color: #000;
+  cursor: pointer;
+  padding: 0;
+}
+
+.iqa-dia.livre { background: #4ade50; }
+.iqa-dia.reservado { background: #ef4444; }
+
+.iqa-dia.selecionado {
+  outline: 2px solid #2b3cff;
+  outline-offset: 2px;
+}
+
+/* Pop-up */
+.iqa-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 1000;
+}
+
+.iqa-modal {
+  width: 100%;
+  max-width: 400px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 22px 24px 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  color: #111;
+}
+
+.iqa-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.iqa-modal-header h2 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.iqa-modal-close {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: #e5e5e5;
+  color: #444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.iqa-field {
+  margin-bottom: 14px;
+  flex: 1;
+}
+
+.iqa-field label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 10px;
+  color: #444;
+}
+
+.iqa-field-value {
+  background: #f8f6f2;
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-size: 12px;
+  color: #222;
+}
+
+.iqa-field-row {
+  display: flex;
+  gap: 12px;
+}
+
+.iqa-status {
+  display: inline-block;
+  background: #d1fae5;
+  color: #047857;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.iqa-cancelar-btn {
+  width: 100%;
+  margin-top: 8px;
+  padding: 12px;
+  background: #ef4444;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.iqa-cancelar-btn:hover { background: #dc2626; }
+
+.iqa-voltar-btn {
+  display: block;
+  margin: 14px auto 0;
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: #444;
+  cursor: pointer;
+}
+
+.iqa-dia:focus-visible,
+.iqa-ver-btn:focus-visible,
+.iqa-cancelar-btn:focus-visible,
+.iqa-voltar-btn:focus-visible {
+  outline: 2px solid #2b3cff;
+  outline-offset: 2px;
+}
+
+@media (max-width: 1000px) {
+  .iqa-content {
+    grid-template-columns: 1fr;
+  }
+  .iqa-topbar {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
