@@ -17,44 +17,166 @@ const initialForm = {
 
 export function TelaCriarQuadra() {
   const navigate = useNavigate();
+
   const [form, setForm] = useState(initialForm);
-  const [imagem, setImagem] = useState('');
+const [arquivoImagem, setArquivoImagem] = useState(null);
+const [imagem, setImagem] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [sucesso, setSucesso] = useState('');
 
   function handleChange(event) {
     const { name, value } = event.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value
+    }));
   }
 
-  function handleImageChange(event) {
-    const file = event.target.files?.[0];
-    if (!file) return;
+function handleImageChange(event) {
+    const arquivo = event.target.files[0];
 
-    const previewUrl = URL.createObjectURL(file);
-    setImagem(previewUrl);
-  }
+    if (!arquivo) {
+        return;
+    }
 
-  function handleSubmit(event) {
+    if (!arquivo.type.startsWith('image/')) {
+        setError('Selecione um arquivo de imagem válido.');
+        return;
+    }
+
+    setArquivoImagem(arquivo);
+
+    const leitor = new FileReader();
+
+    leitor.onloadend = () => {
+        setImagem(leitor.result);
+    };
+
+    leitor.readAsDataURL(arquivo);
+}
+
+  async function handleSubmit(event) {
     event.preventDefault();
-    console.log('Quadra criada:', { ...form, imagem });
-    alert('Quadra criada com sucesso!');
+
+    setLoading(true);
+    setError('');
+    setSucesso('');
+
+    try {
+      const usuarioSalvo = localStorage.getItem('usuario');
+
+      if (!usuarioSalvo) {
+        setError('Você precisa estar logado para criar uma quadra.');
+        return;
+      }
+
+      const usuario = JSON.parse(usuarioSalvo);
+      const idAdministrador = usuario._id || usuario.id;
+
+      if (!idAdministrador) {
+        setError(
+          'Não foi possível identificar o administrador. Faça login novamente.'
+        );
+        return;
+      }
+
+      const dadosQuadra = {
+        ...form,
+        capacidade: Number(form.capacidade),
+        preco: Number(form.preco),
+        largura: Number(form.largura),
+        comprimento: Number(form.comprimento),
+        imagem: imagem,
+        administrador: idAdministrador
+      };
+
+      const resposta = await fetch(
+        'http://localhost:3000/api/quadras',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(dadosQuadra)
+        }
+      );
+
+      const dadosResposta = await resposta.json();
+
+      if (!resposta.ok) {
+        throw new Error(
+          dadosResposta.erro ||
+          dadosResposta.mensagem ||
+          'Não foi possível criar a quadra.'
+        );
+      }
+
+      setSucesso('Quadra criada com sucesso!');
+      setForm(initialForm);
+      setImagem('');
+      setArquivoImagem(null);
+    } catch (erro) {
+      console.error('Erro ao criar quadra:', erro);
+
+      setError(
+        erro.message || 'Erro ao conectar com o servidor.'
+      );
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
     <div className="home-container">
-      <HeaderTelaprincipalAdm activeTab={'quadras'} />
+      <HeaderTelaprincipalAdm activeTab="quadras" />
 
       <main className="main-content-card criar-quadra-card">
         <div className="criar-quadra-header">
-          <button className="back-btn-criar" type="button" title="Voltar" onClick={() => navigate("/admin/quadras")}>
+          <button
+            className="back-btn-criar"
+            type="button"
+            title="Voltar"
+            onClick={() => navigate('/admin/quadras')}
+          >
             <ArrowLeft size={20} color="#111111" />
           </button>
+
           <h2>Criar quadra</h2>
         </div>
 
-        <form className="criar-quadra-form" onSubmit={handleSubmit}>
+        {sucesso && (
+  <div className="modal-overlay">
+    <div className="modal-sucesso">
+      <div className="icone-sucesso">✓</div>
+
+      <h2>Quadra cadastrada!</h2>
+
+      <p>
+        A quadra foi criada com sucesso e já está disponível
+        na listagem.
+      </p>
+
+      <button
+        type="button"
+        className="btn-confirmacao"
+        onClick={() => setSucesso('')}
+      >
+        Entendi
+      </button>
+    </div>
+  </div>
+)}
+
+        <form
+          className="criar-quadra-form"
+          onSubmit={handleSubmit}
+        >
           <div className="form-grid">
             <div className="field">
               <label htmlFor="nome">Nome da quadra</label>
+
               <input
                 id="nome"
                 name="nome"
@@ -62,12 +184,20 @@ export function TelaCriarQuadra() {
                 value={form.nome}
                 onChange={handleChange}
                 placeholder="Ex.: Quadra de areia 01"
+                required
               />
             </div>
 
             <div className="field">
               <label htmlFor="tipo">Tipo de superfície</label>
-              <select id="tipo" name="tipo" value={form.tipo} onChange={handleChange}>
+
+              <select
+                id="tipo"
+                name="tipo"
+                value={form.tipo}
+                onChange={handleChange}
+                required
+              >
                 <option value="">Selecione</option>
                 <option value="areia">Areia</option>
                 <option value="grama">Grama</option>
@@ -78,6 +208,7 @@ export function TelaCriarQuadra() {
 
             <div className="field full-width">
               <label htmlFor="localizacao">Localização</label>
+
               <input
                 id="localizacao"
                 name="localizacao"
@@ -85,11 +216,15 @@ export function TelaCriarQuadra() {
                 value={form.localizacao}
                 onChange={handleChange}
                 placeholder="Ex.: Ginásio Central - Bloco A"
+                required
               />
             </div>
 
             <div className="field">
-              <label htmlFor="capacidade">Capacidade máxima</label>
+              <label htmlFor="capacidade">
+                Capacidade máxima
+              </label>
+
               <input
                 id="capacidade"
                 name="capacidade"
@@ -98,11 +233,15 @@ export function TelaCriarQuadra() {
                 value={form.capacidade}
                 onChange={handleChange}
                 placeholder="Ex.: 10"
+                required
               />
             </div>
 
             <div className="field">
-              <label htmlFor="preco">Preço por hora (R$)</label>
+              <label htmlFor="preco">
+                Preço por hora (R$)
+              </label>
+
               <input
                 id="preco"
                 name="preco"
@@ -112,11 +251,13 @@ export function TelaCriarQuadra() {
                 value={form.preco}
                 onChange={handleChange}
                 placeholder="Ex.: 120.00"
+                required
               />
             </div>
 
             <div className="field">
               <label htmlFor="largura">Largura (m)</label>
+
               <input
                 id="largura"
                 name="largura"
@@ -126,11 +267,15 @@ export function TelaCriarQuadra() {
                 value={form.largura}
                 onChange={handleChange}
                 placeholder="Ex.: 12"
+                required
               />
             </div>
 
             <div className="field">
-              <label htmlFor="comprimento">Comprimento (m)</label>
+              <label htmlFor="comprimento">
+                Comprimento (m)
+              </label>
+
               <input
                 id="comprimento"
                 name="comprimento"
@@ -140,11 +285,13 @@ export function TelaCriarQuadra() {
                 value={form.comprimento}
                 onChange={handleChange}
                 placeholder="Ex.: 18"
+                required
               />
             </div>
 
             <div className="field full-width">
               <label htmlFor="descricao">Descrição</label>
+
               <textarea
                 id="descricao"
                 name="descricao"
@@ -157,25 +304,60 @@ export function TelaCriarQuadra() {
           </div>
 
           <div className="upload-box">
-            <label htmlFor="imagem" className="upload-label">
+            <label
+              htmlFor="imagem"
+              className="upload-label"
+            >
               <UploadCloud size={22} color="#1d4ed8" />
-              <span>{imagem ? 'Alterar imagem' : 'Adicionar imagem da quadra'}</span>
+
+              <span>
+                {imagem
+                  ? 'Alterar imagem'
+                  : 'Adicionar imagem da quadra'}
+              </span>
             </label>
-            <input id="imagem" type="file" accept="image/*" onChange={handleImageChange} />
+
+            <input
+              id="imagem"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
 
             {imagem && (
-              <img src={imagem} alt="Preview da quadra" className="quadra-preview" />
+              <img
+                src={imagem}
+                alt="Preview da quadra"
+                className="quadra-preview"
+              />
             )}
           </div>
 
+          {error && (
+            <p className="form-erro">
+              {error}
+            </p>
+          )}
+
           <div className="form-actions">
-            <button className="cancel-btn" type="button" onClick={() => navigate("/admin/quadras")}>
+            <button
+              className="cancel-btn"
+              type="button"
+              onClick={() => navigate('/admin/quadras')}
+            >
               Cancelar
             </button>
 
-            <button className="submit-btn" type="submit">
+            <button
+              className="submit-btn"
+              type="submit"
+              disabled={loading || Boolean(sucesso)}
+            >
               <Save size={18} />
-              Salvar quadra
+
+              {loading
+                ? 'Salvando...'
+                : 'Salvar quadra'}
             </button>
           </div>
         </form>

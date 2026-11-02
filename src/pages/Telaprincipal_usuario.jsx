@@ -1,29 +1,84 @@
-// src/pages/Telaprincipal_usuario.jsx
-import React from 'react';
-import { Link } from 'react-router-dom';
+
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { HeaderTelaprincipal } from '../components/Header_telaprincipal';
 import { SlidersHorizontal } from 'lucide-react';
-import '../styles/Telaprincipal_usuario.css'; 
+import { QuadraCard } from '../components/QuadraCard';
+import '../styles/Telaprincipal_usuario.css';
 
 export function TelaPrincipalUsuario() {
+    const navigate = useNavigate();
+
+    const [quadras, setQuadras] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+
+    useEffect(() => {
+        async function buscaQuadras() {
+            try {
+                const response = await fetch(
+                    'http://localhost:3000/api/quadras'
+                );
+
+                if (!response.ok) {
+                    throw new Error('Erro ao buscar quadras.');
+                }
+
+                const dados = await response.json();
+                setQuadras(dados);
+            } catch (error) {
+                console.error(error);
+                setError('Não foi possível carregar as quadras.');
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        buscaQuadras();
+    }, []);
+
+    function abrirDetalhes(id) {
+        navigate(`/quadras/${id}`);
+    }
+
     return (
         <div className="home-container">
-            {/* Topo com o menu */}
-            <HeaderTelaprincipal activeTab={'quadras'}/>
+            <HeaderTelaprincipal activeTab="quadras" />
 
-            {/* Conteúdo Central / Cartão Branco */}
-            <main className='main-content-card'>
+            <main className="main-content-card">
                 <div className="content-header">
                     <h2>Todas as quadras</h2>
-                    <button className="filter-icon-btn" title="Filtrar">
+
+                    <button
+                        className="filter-icon-btn"
+                        title="Filtrar"
+                        type="button"
+                    >
                         <SlidersHorizontal size={20} color="#000" />
                     </button>
                 </div>
 
-                {/* Área reservada para os cards */}
-                <div className="cards-grid-placeholder">
-                    <Link to="/quadras/beach-tennis" className="nav-btn">Ver quadra de Beach Tennis</Link>
-                </div>
+                {loading && <p>Carregando quadras...</p>}
+
+                {error && <p>{error}</p>}
+
+                {!loading && !error && quadras.length === 0 && (
+                    <p className="placeholder-text">
+                        Nenhuma quadra cadastrada ainda.
+                    </p>
+                )}
+
+                {!loading && !error && quadras.length > 0 && (
+                    <div className="cards-grid-placeholder">
+                        {quadras.map((quadra) => (
+                            <QuadraCard
+                                key={quadra._id}
+                                quadra={quadra}
+                                onDetalhes={abrirDetalhes}
+                            />
+                        ))}
+                    </div>
+                )}
             </main>
         </div>
     );
