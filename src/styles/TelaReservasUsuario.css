@@ -1,0 +1,158 @@
+/* Tela "Reservas Ativas" — classes com prefixo rv- para não conflitar com outras telas */
+
+.rv-card {
+  background: #eeeeee;
+  padding: 24px 16px 40px;
+  min-height: 560px;
+}
+
+.rv-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 56px;
+}
+
+.rv-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 600;
+  color: #000;
+}
+
+.rv-filter-btn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+}
+
+.rv-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 456px));
+  justify-content: space-between;
+  gap: 32px 24px;
+  align-items: start;
+}
+
+.rv-item {
+  background: #d9d9d9;
+  border: 1px solid #333;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.rv-item-img {
+  width: 100%;
+  aspect-ratio: 453 / 203;
+  object-fit: cover;
+  display: block;
+}
+
+.rv-item-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 18px 8px 18px;
+  color: #000;
+}
+
+.rv-item-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.rv-item-nome {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.rv-item-local {
+  margin: 0 0 14px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.rv-item-data {
+  margin: 0;
+  font-size: 11px;
+}
+
+.rv-item-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px;
+  flex-shrink: 0;
+  width: 46%;
+}
+
+.rv-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+  align-self: flex-start;
+  margin-left: 6px;
+}
+
+.rv-dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #00c820;
+  border: 1.5px solid #222;
+  flex-shrink: 0;
+}
+
+.rv-reservado {
+  margin: 0;
+  font-size: 9.5px;
+  line-height: 1.3;
+  text-align: left;
+  align-self: flex-start;
+  margin-left: 6px;
+}
+
+.rv-detalhes-btn {
+  width: 100%;
+  height: 35px;
+  background: #2b3cff;
+  color: #fff;
+  border: 1px solid #1a24b8;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.rv-detalhes-btn:hover {
+  filter: brightness(1.1);
+}
+
+.rv-detalhes-btn:focus-visible,
+.rv-filter-btn:focus-visible {
+  outline: 2px solid #2b3cff;
+  outline-offset: 2px;
+}
+
+@media (max-width: 1000px) {
+  .rv-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
