@@ -19,7 +19,8 @@ export function TelaCriarQuadra() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState(initialForm);
-  const [imagem, setImagem] = useState('');
+const [arquivoImagem, setArquivoImagem] = useState(null);
+const [imagem, setImagem] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [sucesso, setSucesso] = useState('');
@@ -33,14 +34,28 @@ export function TelaCriarQuadra() {
     }));
   }
 
-  function handleImageChange(event) {
-    const file = event.target.files?.[0];
+function handleImageChange(event) {
+    const arquivo = event.target.files[0];
 
-    if (!file) return;
+    if (!arquivo) {
+        return;
+    }
 
-    const previewUrl = URL.createObjectURL(file);
-    setImagem(previewUrl);
-  }
+    if (!arquivo.type.startsWith('image/')) {
+        setError('Selecione um arquivo de imagem válido.');
+        return;
+    }
+
+    setArquivoImagem(arquivo);
+
+    const leitor = new FileReader();
+
+    leitor.onloadend = () => {
+        setImagem(leitor.result);
+    };
+
+    leitor.readAsDataURL(arquivo);
+}
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -73,7 +88,7 @@ export function TelaCriarQuadra() {
         preco: Number(form.preco),
         largura: Number(form.largura),
         comprimento: Number(form.comprimento),
-        imagem: '',
+        imagem: imagem,
         administrador: idAdministrador
       };
 
@@ -101,6 +116,7 @@ export function TelaCriarQuadra() {
       setSucesso('Quadra criada com sucesso!');
       setForm(initialForm);
       setImagem('');
+      setArquivoImagem(null);
     } catch (erro) {
       console.error('Erro ao criar quadra:', erro);
 

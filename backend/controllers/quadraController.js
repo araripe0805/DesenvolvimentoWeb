@@ -3,9 +3,18 @@ import Quadra from '../models/quadraModel.js';
 const quadraController = {
   criarQuadra: async (req, res) => {
     try {
-      console.log('Dados recebidos do frontend:', req.body);
-      console.log('Administrador recebido:', req.body.administrador);
-      const { nome, tipo, localizacao, capacidade, preco, largura, comprimento, descricao, imagem, ativo, administrador } = req.body;
+      const { 
+        nome, 
+        tipo, 
+        localizacao, 
+        capacidade, 
+        preco, 
+        largura, 
+        comprimento, 
+        descricao, 
+        imagem, 
+        ativo, 
+        administrador } = req.body;
 
       if (
         !nome ||
