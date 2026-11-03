@@ -79,6 +79,30 @@ const quadraController = {
         erro: 'Erro ao buscar quadras.'
       });
     }
+  },
+  deletarQuadra: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const quadra = await Quadra.findByIdAndDelete(id);
+
+      if (!quadra) {
+        return res.status(404).json({
+          erro: 'Quadra não encontrada.'
+        });
+      }
+
+      return res.status(200).json({
+        mensagem: 'Quadra deletada com sucesso.'
+      });
+
+    } catch (error) {
+      console.error(error);
+
+      return res.status(500).json({
+        erro: 'Erro ao deletar quadra.'
+      });
+    }
   }
 };
 
