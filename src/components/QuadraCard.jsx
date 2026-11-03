@@ -4,7 +4,10 @@ import '../styles/QuadraCard.css';
 
 export function QuadraCard({ quadra, onDetalhes }) {
     const preco = Number(quadra.preco);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
     return (
         <div className="quadra-card">
             <div className="quadra-card-image-container">

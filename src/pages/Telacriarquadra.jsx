@@ -19,21 +19,30 @@ export function TelaCriarQuadra() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState(initialForm);
+<<<<<<< HEAD
 const [arquivoImagem, setArquivoImagem] = useState(null);
 const [imagem, setImagem] = useState('');
+=======
+  const [arquivoImagem, setArquivoImagem] = useState(null);
+  const [imagem, setImagem] = useState('');
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [sucesso, setSucesso] = useState('');
 
   function handleChange(event) {
     const { name, value } = event.target;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
     setForm((prev) => ({
       ...prev,
       [name]: value
     }));
   }
 
+<<<<<<< HEAD
 function handleImageChange(event) {
     const arquivo = event.target.files[0];
 
@@ -46,6 +55,19 @@ function handleImageChange(event) {
         return;
     }
 
+=======
+  function handleImageChange(event) {
+    const arquivo = event.target.files[0];
+    if (!arquivo) {
+        return;
+    }
+
+    if (!arquivo.type.startsWith('image/')) {
+        setError('Selecione um arquivo de imagem válido.');
+        return;
+    }
+
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
     setArquivoImagem(arquivo);
 
     const leitor = new FileReader();
@@ -59,7 +81,10 @@ function handleImageChange(event) {
 
   async function handleSubmit(event) {
     event.preventDefault();
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
     setLoading(true);
     setError('');
     setSucesso('');
@@ -73,6 +98,10 @@ function handleImageChange(event) {
       }
 
       const usuario = JSON.parse(usuarioSalvo);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
       const idAdministrador = usuario._id || usuario.id;
 
       if (!idAdministrador) {
@@ -119,7 +148,10 @@ function handleImageChange(event) {
       setArquivoImagem(null);
     } catch (erro) {
       console.error('Erro ao criar quadra:', erro);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
       setError(
         erro.message || 'Erro ao conectar com o servidor.'
       );
@@ -190,7 +222,10 @@ function handleImageChange(event) {
 
             <div className="field">
               <label htmlFor="tipo">Tipo de superfície</label>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
               <select
                 id="tipo"
                 name="tipo"
@@ -224,7 +259,10 @@ function handleImageChange(event) {
               <label htmlFor="capacidade">
                 Capacidade máxima
               </label>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
               <input
                 id="capacidade"
                 name="capacidade"
@@ -241,7 +279,10 @@ function handleImageChange(event) {
               <label htmlFor="preco">
                 Preço por hora (R$)
               </label>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
               <input
                 id="preco"
                 name="preco"
@@ -275,7 +316,10 @@ function handleImageChange(event) {
               <label htmlFor="comprimento">
                 Comprimento (m)
               </label>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
               <input
                 id="comprimento"
                 name="comprimento"
@@ -309,14 +353,20 @@ function handleImageChange(event) {
               className="upload-label"
             >
               <UploadCloud size={22} color="#1d4ed8" />
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
               <span>
                 {imagem
                   ? 'Alterar imagem'
                   : 'Adicionar imagem da quadra'}
               </span>
             </label>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
             <input
               id="imagem"
               type="file"
@@ -354,7 +404,10 @@ function handleImageChange(event) {
               disabled={loading || Boolean(sucesso)}
             >
               <Save size={18} />
+<<<<<<< HEAD
 
+=======
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
               {loading
                 ? 'Salvando...'
                 : 'Salvar quadra'}

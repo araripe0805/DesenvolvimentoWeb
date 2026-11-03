@@ -4,7 +4,11 @@ import dns from 'node:dns';
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 export async function connectToMongoDB() {
+<<<<<<< HEAD
     try {
+=======
+  try {
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
         await mongoose.connect(process.env.MONGO_URI);
 
         console.log('Conectado ao MongoDB com sucesso!');

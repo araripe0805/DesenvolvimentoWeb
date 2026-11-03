@@ -190,7 +190,11 @@
     width: 100%;
     justify-content: center;
   }
+<<<<<<< HEAD
 }
+=======
+  }
+>>>>>>> 22cec8d (COrrigindo a porra do merge)
 
 .modal-overlay {
   position: fixed;
