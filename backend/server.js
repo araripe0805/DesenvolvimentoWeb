@@ -20,12 +20,8 @@ async function startServer() {
 
     // Middlewares
     app.use(cors());
-<<<<<<< HEAD
     app.use(express.json({ limit: '10mb' }));
     app.use(express.urlencoded({ limit: '10mb', extended: true }));
-=======
-    app.use(express.json());
->>>>>>> 22cec8d (COrrigindo a porra do merge)
     app.use('/uploads', express.static('uploads'));
 
     // Registo das Rotas

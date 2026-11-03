@@ -146,6 +146,43 @@ const userController = {
       console.error(error);
       return res.status(500).json({ erro: 'Erro ao atualizar usuário.' });
     }
+  },
+
+  excluirConta: async (req, res) => {
+    try {
+      // 1. Dados que vieram do front
+      const { id } = req.params;
+      const { senha } = req.body;
+
+      // 2. Validação básica
+      if (!mongoose.isValidObjectId(id)) {
+        return res.status(400).json({ erro: 'Id inválido.' });
+      }
+
+      if (!senha || typeof senha !== 'string') {
+        return res.status(400).json({ erro: 'Informe sua senha para confirmar.' });
+      }
+
+      // 3. Procura o usuário
+      const usuario = await User.findById(id);
+      if (!usuario) {
+        return res.status(404).json({ erro: 'Usuário não encontrado.' });
+      }
+
+      // 4. Confere a senha antes de apagar
+      const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
+      if (!senhaCorreta) {
+        return res.status(401).json({ erro: 'Senha incorreta.' });
+      }
+
+      // 5. Apaga a conta
+      await User.findByIdAndDelete(id);
+
+      return res.status(200).json({ mensagem: 'Conta excluída com sucesso.' });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ erro: 'Erro ao excluir conta.' });
+    }
   }
 };
 

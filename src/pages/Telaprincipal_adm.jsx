@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 22cec8d (COrrigindo a porra do merge)
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HeaderTelaprincipalAdm } from '../components/Header_telaprincipal_adm';
@@ -46,15 +42,8 @@ export function TelaPrincipalAdm() {
 
     return (
         <div className="home-container">
-<<<<<<< HEAD
             <HeaderTelaprincipalAdm activeTab="quadras" />
 
-=======
-            {/* Topo com o menu */}
-            <HeaderTelaprincipalAdm activeTab="quadras" />
-
-            {/* Conteúdo Central / Cartão Branco */}
->>>>>>> 22cec8d (COrrigindo a porra do merge)
             <main className="main-content-card">
                 <div className="content-header">
                     <h2>Todas as quadras</h2>

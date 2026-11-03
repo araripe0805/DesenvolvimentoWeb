@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 22cec8d (COrrigindo a porra do merge)
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { HeaderTelaprincipal } from '../components/Header_telaprincipal';
@@ -46,22 +42,12 @@ export function TelaPrincipalUsuario() {
 
     return (
         <div className="home-container">
-<<<<<<< HEAD
             <HeaderTelaprincipal activeTab="quadras" />
 
             <main className="main-content-card">
                 <div className="content-header">
                     <h2>Todas as quadras</h2>
 
-=======
-            {/* Topo com o menu */}
-            <HeaderTelaprincipal activeTab="quadras" />
-
-            {/* Conteúdo Central / Cartão Branco */}
-            <main className="main-content-card">
-                <div className="content-header">
-                    <h2>Todas as quadras</h2>
->>>>>>> 22cec8d (COrrigindo a porra do merge)
                     <button
                         className="filter-icon-btn"
                         title="Filtrar"

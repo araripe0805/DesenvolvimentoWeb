@@ -19,6 +19,10 @@ export function TelaEditarInformacoes() {
     const [erro, setErro] = useState('');
     const [sucesso, setSucesso] = useState('');
     const [carregando, setCarregando] = useState(false);
+    const [mostrarExclusao, setMostrarExclusao] = useState(false);
+    const [senhaExclusao, setSenhaExclusao] = useState('');
+    const [erroExclusao, setErroExclusao] = useState('');
+    const [excluindo, setExcluindo] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -80,6 +84,57 @@ export function TelaEditarInformacoes() {
             setErro('Não foi possível conectar ao servidor.');
         } finally {
             setCarregando(false);
+        }
+    }
+
+    function abrirExclusao() {
+        setSenhaExclusao('');
+        setErroExclusao('');
+        setMostrarExclusao(true);
+    }
+
+    function fecharExclusao() {
+        if (excluindo) return;
+        setMostrarExclusao(false);
+    }
+
+    async function handleExcluir(e) {
+        e.preventDefault();
+        setErroExclusao('');
+
+        if (!usuario?._id) {
+            setErroExclusao('Você precisa fazer login novamente.');
+            return;
+        }
+
+        if (!senhaExclusao) {
+            setErroExclusao('Informe sua senha para confirmar.');
+            return;
+        }
+
+        setExcluindo(true);
+
+        try {
+            const resposta = await fetch(`http://localhost:3000/api/users/${usuario._id}`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ senha: senhaExclusao }),
+            });
+
+            const dados = await resposta.json();
+
+            if (!resposta.ok) {
+                setErroExclusao(dados.erro || 'Não foi possível excluir a conta.');
+                return;
+            }
+
+            // a conta não existe mais: apaga os dados guardados e volta pro login
+            localStorage.removeItem('usuario');
+            navigate('/login', { replace: true });
+        } catch (err) {
+            setErroExclusao('Não foi possível conectar ao servidor.');
+        } finally {
+            setExcluindo(false);
         }
     }
 
@@ -221,12 +276,52 @@ export function TelaEditarInformacoes() {
                             <p>Ao excluir sua conta, seus dados serão removidos e essa ação não poderá ser desfeita.</p>
                         </div>
 
-                        <button type="button" className="delete-account-btn">
+                        <button type="button" className="delete-account-btn" onClick={abrirExclusao}>
                             <Trash2 size={18} /> Excluir conta
                         </button>
                     </div>
                 </div>
             </main>
+
+            {mostrarExclusao && (
+                <div className="modal-overlay" onClick={fecharExclusao}>
+                    <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+                        <h3>Excluir conta?</h3>
+                        <p>
+                            Essa ação é definitiva e não poderá ser desfeita.
+                            Digite sua senha para confirmar.
+                        </p>
+
+                        <form onSubmit={handleExcluir}>
+                            <div className="input-wrapper">
+                                <label>Senha</label>
+                                <div className="input-icon-container editable">
+                                    <Lock size={18} color="#2563eb" />
+                                    <input
+                                        type="password"
+                                        value={senhaExclusao}
+                                        onChange={(e) => setSenhaExclusao(e.target.value)}
+                                        placeholder="Digite sua senha"
+                                        autoComplete="current-password"
+                                        autoFocus
+                                    />
+                                </div>
+                            </div>
+
+                            {erroExclusao && <p className="edit-info-erro">{erroExclusao}</p>}
+
+                            <div className="modal-actions">
+                                <button type="button" className="cancel-btn" onClick={fecharExclusao}>
+                                    Cancelar
+                                </button>
+                                <button type="submit" className="confirm-delete-btn" disabled={excluindo}>
+                                    {excluindo ? 'Excluindo...' : 'Excluir definitivamente'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
