@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { HeaderTelaprincipal } from '../components/Header_telaprincipal';
 import { User, ArrowLeft, Pencil, LogOut } from 'lucide-react';
 import '../styles/Telaperfil.css';
@@ -8,7 +8,18 @@ export function TelaPerfil() {
     const navigate = useNavigate();
     const { pathname } = useLocation();
     const prefix = pathname.startsWith('/admin') ? '/admin' : '';
-    const usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
+    let usuario;
+    try {
+        usuario = JSON.parse(localStorage.getItem('usuario') || 'null');
+    } catch {
+        return <Navigate to="/login" replace />;
+    }
+
+    if (!usuario?._id) {
+        return <Navigate to="/login" replace />;
+    }
+
+    const tipoConta = { usuario: 'Usuário', admin: 'Administrador' }[usuario.tipoUser] || 'Não informado';
     return (
         <div className='home-container'>
             {/* Topo com o menu compartilhado */}
@@ -33,8 +44,21 @@ export function TelaPerfil() {
                     </div>
 
                     <div className="profile-info-section">
-                        <h2 className='profile-nome-usuario'>{usuario?.nome || 'Usuário'}</h2>
-                        <p className="profile-matricula">Matrícula: {usuario?.matricula || '-'}</p>
+                        <h2 className='profile-nome-usuario'>{usuario.nome || 'Nome não informado'}</h2>
+                        <dl className="profile-details">
+                            <div>
+                                <dt>Matrícula</dt>
+                                <dd>{usuario.matricula || 'Não informada'}</dd>
+                            </div>
+                            <div>
+                                <dt>Telefone</dt>
+                                <dd>{usuario.telefone || 'Não informado'}</dd>
+                            </div>
+                            <div>
+                                <dt>Tipo de conta</dt>
+                                <dd>{tipoConta}</dd>
+                            </div>
+                        </dl>
                     </div>
                 </div>
 
