@@ -13,13 +13,76 @@ export function TelaEditarInformacoes() {
         nome: usuario?.nome || '',
         matricula: usuario?.matricula || '',
         telefone: usuario?.telefone || '',
-        senha: '••••••••••••'
     });
+    const [novaSenha, setNovaSenha] = useState('');
+    const [senhaAtual, setSenhaAtual] = useState('');
+    const [erro, setErro] = useState('');
+    const [sucesso, setSucesso] = useState('');
+    const [carregando, setCarregando] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({ ...prev, [name]: value }));
     };
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        setErro('');
+        setSucesso('');
+
+        if (!usuario?._id) {
+            setErro('Você precisa fazer login novamente.');
+            return;
+        }
+
+        if (!senhaAtual) {
+            setErro('Informe sua senha atual para confirmar.');
+            return;
+        }
+
+        // monta só o que realmente mudou
+        const alteracoes = {};
+        if (formData.telefone.trim() !== (usuario.telefone || '')) {
+            alteracoes.telefone = formData.telefone.trim();
+        }
+        if (novaSenha) {
+            alteracoes.novaSenha = novaSenha;
+        }
+
+        if (Object.keys(alteracoes).length === 0) {
+            setErro('Nenhuma alteração para salvar.');
+            return;
+        }
+
+        setCarregando(true);
+
+        try {
+            const resposta = await fetch(`http://localhost:3000/api/users/${usuario._id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...alteracoes, senhaAtual }),
+            });
+
+            const dados = await resposta.json();
+
+            if (!resposta.ok) {
+                setErro(dados.erro || 'Não foi possível salvar.');
+                return;
+            }
+
+            // atualiza os dados guardados no navegador
+            localStorage.setItem('usuario', JSON.stringify(dados));
+
+            setNovaSenha('');
+            setSenhaAtual('');
+            setSucesso('Informações atualizadas com sucesso!');
+        } catch (err) {
+            setErro('Não foi possível conectar ao servidor.');
+        } finally {
+            setCarregando(false);
+        }
+    }
+
     return (
         <div className="home-container">
             <HeaderTelaprincipal activeTab={null} />
@@ -48,7 +111,7 @@ export function TelaEditarInformacoes() {
                             <p>Confira seus dados atuais antes de salvar.</p>
                         </div>
 
-                        <form className="edit-form-grid" onSubmit={(e) => e.preventDefault()}>
+                        <form className="edit-form-grid" onSubmit={handleSubmit}>
                             {/* Linha 1: Nome e Matrícula (Somente leitura) */}
                             <div className="input-row-group">
                                 <div className="input-wrapper">
@@ -92,37 +155,61 @@ export function TelaEditarInformacoes() {
                                     <label>Telefone</label>
                                     <div className="input-icon-container editable">
                                         <Phone size={18} color="#2563eb" />
-                                        <input 
-                                        type="text" 
-                                        name="telefone" 
-                                        value={formData.telefone} 
-                                        onChange={handleChange} 
+                                        <input
+                                            type="text"
+                                            name="telefone"
+                                            value={formData.telefone}
+                                            onChange={handleChange}
                                         />
                                     </div>
                                     <span className="input-helper-text">Este número será usado para avisos sobre suas reservas.</span>
                                 </div>
 
                                 <div className="input-wrapper">
-                                    <label>Senha</label>
-                                    <div className="input-icon-container">
-                                        <Lock size={18} color="#6b7280" />
-                                        <input 
-                                        type="password" 
-                                        name="senha" 
-                                        value={formData.senha} 
-                                        onChange={handleChange} 
+                                    <label>Nova senha</label>
+                                    <div className="input-icon-container editable">
+                                        <Lock size={18} color="#2563eb" />
+                                        <input
+                                            type="password"
+                                            name="novaSenha"
+                                            value={novaSenha}
+                                            onChange={(e) => setNovaSenha(e.target.value)}
+                                            placeholder="Deixe em branco para manter a atual"
+                                            autoComplete="new-password"
                                         />
                                     </div>
                                 </div>
                             </div>
+
+                            {/* Linha 3: Senha atual (confirmação) */}
+                            <div className="input-row-group">
+                                <div className="input-wrapper">
+                                    <label>Senha atual</label>
+                                    <div className="input-icon-container editable">
+                                        <Lock size={18} color="#2563eb" />
+                                        <input
+                                            type="password"
+                                            name="senhaAtual"
+                                            value={senhaAtual}
+                                            onChange={(e) => setSenhaAtual(e.target.value)}
+                                            placeholder="Digite sua senha atual"
+                                            autoComplete="current-password"
+                                        />
+                                    </div>
+                                    <span className="input-helper-text">Necessária para confirmar qualquer alteração.</span>
+                                </div>
+                            </div>
+
+                            {erro && <p className="edit-info-erro">{erro}</p>}
+                            {sucesso && <p className="edit-info-sucesso">{sucesso}</p>}
 
                             {/* Botões de Ação (Cancelar e Salvar) */}
                             <div className="edit-form-actions">
                                 <button type="button" className="cancel-btn" onClick={() => navigate(perfil)}>
                                     Cancelar
                                 </button>
-                                <button type="submit" className="save-btn">
-                                    <Save size={18} /> Salvar
+                                <button type="submit" className="save-btn" disabled={carregando}>
+                                    <Save size={18} /> {carregando ? 'Salvando...' : 'Salvar'}
                                 </button>
                             </div>
                         </form>

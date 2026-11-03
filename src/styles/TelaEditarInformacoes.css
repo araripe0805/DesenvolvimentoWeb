@@ -253,3 +253,21 @@
   background-color: #dc2626;
   color: #ffffff;
 }
+
+.edit-info-erro {
+  font-size: 13px;
+  color: #dc2626;
+  margin: 0;
+}
+
+.edit-info-sucesso {
+  font-size: 13px;
+  font-weight: 600;
+  color: #16a34a;
+  margin: 0;
+}
+
+.save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
