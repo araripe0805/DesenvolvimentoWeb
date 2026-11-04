@@ -6,4 +6,5 @@ const router = express.Router();
 router.post('/', quadraController.criarQuadra);
 router.get('/', quadraController.listarQuadras);
 router.delete('/:id', quadraController.deletarQuadra);
+router.get('/:id', quadraController.buscarQuadra);
 export default router;

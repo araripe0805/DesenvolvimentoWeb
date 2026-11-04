@@ -12,4 +12,6 @@ router.get('/usuario/:usuarioId',reservaController.listarReservasUsuario);
 
 router.patch('/:id/cancelar',reservaController.cancelarReserva);
 
+router.get('/quadra/:quadraId/ocupados', reservaController.horariosOcupados);
+
 export default router;

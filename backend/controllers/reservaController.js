@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 import Reserva from '../models/reservaModel.js';
 import Horario from '../models/horarioModel.js';
 import Quadra from '../models/quadraModel.js';
+import User from '../models/userModel.js';
+
+const DIAS_SEMANA = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
+
 
 const reservaController = {
   criarReserva: async (req, res) => {
@@ -25,11 +29,40 @@ const reservaController = {
                 });
             }
 
+            // A data precisa vir como texto AAAA-MM-DD
+            if (typeof data !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(data)) {
+                return res.status(400).json({
+                    erro: 'Informe a data no formato AAAA-MM-DD.'
+                });
+            }
+
             const dataReserva = new Date(data);
 
-            if (Number.isNaN(dataReserva.getTime())) {
+            // Rejeita datas que não existem (ex.: 2026-02-31)
+            if (
+                Number.isNaN(dataReserva.getTime()) ||
+                dataReserva.toISOString().slice(0, 10) !== data
+            ) {
                 return res.status(400).json({
                     erro: 'Data inválida.'
+                });
+            }
+
+            // Rejeita datas que já passaram
+            const agora = new Date();
+            const hoje = `${agora.getFullYear()}-${String(agora.getMonth() + 1).padStart(2, '0')}-${String(agora.getDate()).padStart(2, '0')}`;
+
+            if (data < hoje) {
+                return res.status(400).json({
+                    erro: 'Não é possível reservar uma data que já passou.'
+                });
+            }
+
+            const usuarioExiste = await User.findById(usuario);
+
+            if (!usuarioExiste) {
+                return res.status(404).json({
+                    erro: 'Usuário não encontrado.'
                 });
             }
 
@@ -55,6 +88,15 @@ const reservaController = {
             if (!horarioExiste) {
                 return res.status(404).json({
                     erro: 'Horário não encontrado ou indisponível.'
+                });
+            }
+
+            // O dia da semana da data tem que ser o do horário
+            const diaDaData = DIAS_SEMANA[dataReserva.getUTCDay()];
+
+            if (diaDaData !== horarioExiste.diaSemana) {
+                return res.status(400).json({
+                    erro: `Esse horário é de ${horarioExiste.diaSemana}, mas a data escolhida é ${diaDaData}.`
                 });
             }
 
@@ -128,6 +170,39 @@ const reservaController = {
             return res.status(500).json({
                 erro: 'Erro ao listar reservas do usuário.'
             });
+        }
+    },
+
+    // Horários já reservados de uma quadra em uma data
+    horariosOcupados: async (req, res) => {
+        try {
+            const { quadraId } = req.params;
+            const { data } = req.query;
+
+            if (!mongoose.Types.ObjectId.isValid(quadraId)) {
+                return res.status(400).json({ erro: 'ID da quadra inválido.' });
+            }
+
+            if (typeof data !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(data)) {
+                return res.status(400).json({ erro: 'Informe a data no formato AAAA-MM-DD.' });
+            }
+
+            const dataReserva = new Date(data);
+
+            if (Number.isNaN(dataReserva.getTime())) {
+                return res.status(400).json({ erro: 'Data inválida.' });
+            }
+
+            const reservas = await Reserva.find({
+                quadra: quadraId,
+                data: dataReserva,
+                status: 'confirmada'
+            }).select('horario');
+
+            return res.status(200).json(reservas.map((r) => r.horario));
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ erro: 'Erro ao buscar horários ocupados.' });
         }
     },
 

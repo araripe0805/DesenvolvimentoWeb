@@ -143,3 +143,83 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Lista de quadras */
+.quadras-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+
+.quadra-lista-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.quadra-lista-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.quadra-lista-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
+.quadra-lista-info {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.quadra-lista-tipo {
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 600;
+  color: #1d4ed8;
+  background-color: #dbeafe;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.quadra-lista-info h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111111;
+}
+
+.quadra-lista-local {
+  margin: 0;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.quadra-lista-preco {
+  margin: 6px 0 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111111;
+}
+
+.quadras-status {
+  text-align: center;
+  color: #64748b;
+  font-size: 15px;
+  margin: 40px 0;
+}
+
+.quadras-status-erro {
+  color: #dc2626;
+}

@@ -1,39 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { HeaderTelaprincipal } from '../components/Header_telaprincipal';
 import { SlidersHorizontal } from 'lucide-react';
-import { QuadraCard } from '../components/QuadraCard';
+import imgPadrao from '../assets/imagem_tela_login.jpeg';
 import '../styles/Telaprincipal_usuario.css';
 
-export function TelaPrincipalUsuario() {
-    const navigate = useNavigate();
+const TIPOS = { areia: 'Areia', grama: 'Grama', sintetico: 'Sintético', cimento: 'Cimento' };
 
+export function TelaPrincipalUsuario() {
     const [quadras, setQuadras] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
+    const [carregando, setCarregando] = useState(true);
+    const [erro, setErro] = useState('');
 
     useEffect(() => {
-        async function buscaQuadras() {
-            try {
-                const response = await fetch(
-                    'http://localhost:3000/api/quadras'
-                );
+        let ativo = true;
 
-                if (!response.ok) {
-                    throw new Error('Erro ao buscar quadras.');
+        async function carregarQuadras() {
+            try {
+                const resposta = await fetch('http://localhost:3000/api/quadras');
+                const dados = await resposta.json();
+
+                if (!resposta.ok) {
+                    if (ativo) setErro(dados.erro || 'Não foi possível carregar as quadras.');
+                    return;
                 }
 
-                const dados = await response.json();
-                setQuadras(dados);
-            } catch (error) {
-                console.error(error);
-                setError('Não foi possível carregar as quadras.');
+                if (ativo) setQuadras(dados);
+            } catch (err) {
+                if (ativo) setErro('Não foi possível conectar ao servidor.');
             } finally {
-                setLoading(false);
+                if (ativo) setCarregando(false);
             }
         }
 
-        buscaQuadras();
+        carregarQuadras();
+
+        return () => { ativo = false; };
     }, []);
 
     function abrirDetalhes(id) {
@@ -57,24 +59,38 @@ export function TelaPrincipalUsuario() {
                     </button>
                 </div>
 
-                {loading && <p>Carregando quadras...</p>}
+                {carregando && <p className="quadras-status">Carregando quadras...</p>}
 
-                {error && <p>{error}</p>}
-
-                {!loading && !error && quadras.length === 0 && (
-                    <p className="placeholder-text">
-                        Nenhuma quadra cadastrada ainda.
-                    </p>
+                {!carregando && erro && (
+                    <p className="quadras-status quadras-status-erro">{erro}</p>
                 )}
 
-                {!loading && !error && quadras.length > 0 && (
-                    <div className="cards-grid-placeholder">
+                {!carregando && !erro && quadras.length === 0 && (
+                    <p className="quadras-status">Nenhuma quadra disponível no momento.</p>
+                )}
+
+                {!carregando && !erro && quadras.length > 0 && (
+                    <div className="quadras-grid">
                         {quadras.map((quadra) => (
-                            <QuadraCard
+                            <Link
                                 key={quadra._id}
-                                quadra={quadra}
-                                onDetalhes={abrirDetalhes}
-                            />
+                                to={`/quadras/${quadra._id}`}
+                                className="quadra-lista-card"
+                            >
+                                <img
+                                    src={quadra.imagem || imgPadrao}
+                                    alt={quadra.nome}
+                                    className="quadra-lista-img"
+                                />
+                                <div className="quadra-lista-info">
+                                    <span className="quadra-lista-tipo">{TIPOS[quadra.tipo] || quadra.tipo}</span>
+                                    <h3>{quadra.nome}</h3>
+                                    <p className="quadra-lista-local">{quadra.localizacao}</p>
+                                    <p className="quadra-lista-preco">
+                                        {Number(quadra.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} por hora
+                                    </p>
+                                </div>
+                            </Link>
                         ))}
                     </div>
                 )}

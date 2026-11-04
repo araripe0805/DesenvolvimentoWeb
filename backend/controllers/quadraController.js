@@ -1,4 +1,7 @@
 import Quadra from '../models/quadraModel.js';
+import mongoose from 'mongoose';
+import Horario from '../models/horarioModel.js';
+import { gerarHorariosPadrao } from '../utils/horariosPadrao.js';
 
 const quadraController = {
   criarQuadra: async (req, res) => {
@@ -47,6 +50,8 @@ const quadraController = {
         administrador
       });
 
+      await Horario.insertMany(gerarHorariosPadrao(novaQuadra._id));
+
       return res.status(201).json({
         _id: novaQuadra._id,
         nome: novaQuadra.nome,
@@ -78,6 +83,27 @@ const quadraController = {
     return res.status(500).json({
         erro: 'Erro ao buscar quadras.'
       });
+    }
+  },
+
+  buscarQuadra: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      if (!mongoose.isValidObjectId(id)) {
+        return res.status(400).json({ erro: 'Id inválido.' });
+      }
+
+      const quadra = await Quadra.findOne({ _id: id, ativo: true });
+
+      if (!quadra) {
+        return res.status(404).json({ erro: 'Quadra não encontrada.' });
+      }
+
+      return res.status(200).json(quadra);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ erro: 'Erro ao buscar quadra.' });
     }
   },
 

@@ -366,3 +366,118 @@
     width: 100%;
   }
 }
+
+.iq-status {
+  text-align: center;
+  color: #64748b;
+  font-size: 16px;
+  margin: 50px 0 16px;
+}
+
+.iq-status-erro {
+  color: #dc2626;
+}
+
+.iq-status-link {
+  display: block;
+  text-align: center;
+  margin-bottom: 40px;
+  color: #0d5dc9;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.iq-status-link:hover {
+  text-decoration: underline;
+}
+
+.iq-horarios {
+  width: 100%;
+  max-width: 380px;
+  margin-top: 16px;
+}
+
+.iq-horarios-titulo {
+  font-size: 18px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.iq-horarios-msg {
+  margin: 0;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.iq-horarios-erro {
+  color: #dc2626;
+}
+
+.iq-horarios-lista {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.iq-horario {
+  padding: 10px 8px;
+  border-radius: 10px;
+  border: 1px solid #b9b9b9;
+  background: #ffffff;
+  color: #111;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.iq-horario:hover:not(:disabled):not(.selecionado) {
+  background: #eef4ff;
+  border-color: #0d5dc9;
+}
+
+.iq-horario.selecionado {
+  background: #0d5dc9;
+  border-color: #0d5dc9;
+  color: #ffffff;
+}
+
+.iq-horario:disabled {
+  background: #f1f1f1;
+  border-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.iq-horario-tag {
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.iq-confirmButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.iq-reserva-msg {
+  width: 100%;
+  max-width: 380px;
+  margin: 14px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.iq-reserva-erro {
+  color: #dc2626;
+}
+
+.iq-reserva-sucesso {
+  color: #16a34a;
+}
+
+.iq-reserva-sucesso a {
+  color: #0d5dc9;
+  margin-left: 6px;
+}
