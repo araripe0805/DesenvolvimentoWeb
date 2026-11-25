@@ -7,4 +7,5 @@ router.post('/', quadraController.criarQuadra);
 router.get('/', quadraController.listarQuadras);
 router.delete('/:id', quadraController.deletarQuadra);
 router.get('/:id', quadraController.buscarQuadra);
+router.patch('/:id', quadraController.atualizarQuadra);
 export default router;

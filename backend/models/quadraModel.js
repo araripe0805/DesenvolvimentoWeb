@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 
 const quadraSchema = new mongoose.Schema({
+    idQuadra: {
+        type: Number,
+        unique: true,
+    },
+
     nome: {
         type: String,
         required: true,

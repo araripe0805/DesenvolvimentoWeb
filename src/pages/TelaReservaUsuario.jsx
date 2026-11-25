@@ -126,7 +126,7 @@ export function TelaReservasUsuario() {
                                             <button
                                                 type="button"
                                                 className="rv-detalhes-btn"
-                                                onClick={() => navigate(`/reservas/${r._id}`)}
+                                                onClick={() => navigate(`/quadras/${r._id}`)}
                                             >
                                                 Detalhes
                                             </button>
